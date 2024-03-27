@@ -1,0 +1,31 @@
+[build-system]
+requires = [ "setuptools",]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "energy_forcasting_model"
+readme = "README.md"
+dynamic = [ "dependencies", "version",]
+
+[project.scripts]
+energy-forcasting-model = "energy_forcasting_model.__main__:main"
+
+[tool.kedro]
+package_name = "energy_forcasting_model"
+project_name = "energy-forcasting-model"
+kedro_init_version = "0.19.3"
+tools = [ "Kedro Viz",]
+example_pipeline = "False"
+source_dir = "src"
+
+[project.entry-points."kedro.hooks"]
+
+[tool.setuptools.dynamic.dependencies]
+file = "requirements.txt"
+
+[tool.setuptools.dynamic.version]
+attr = "energy_forcasting_model.__version__"
+
+[tool.setuptools.packages.find]
+where = [ "src",]
+namespaces = false
