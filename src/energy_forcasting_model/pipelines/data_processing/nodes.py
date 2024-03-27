@@ -97,3 +97,19 @@ def preprocess_weather_data(df, params):
     
     # Calculate day length and drop original sunrise and sunset columns
     return calculate_day_length(df_encoded)
+
+def merge_consumption_and_weather_data(power_consumption_data: pd.DataFrame, 
+               processed_weather_data: pd.DataFrame) -> pd.DataFrame:
+    """
+    Merges power consumption data with processed weather data on their indices.
+
+    Args:
+        power_consumption_data (pd.DataFrame): DataFrame containing power consumption data.
+        processed_weather_data (pd.DataFrame): DataFrame containing processed weather data.
+
+    Returns:
+        pd.DataFrame: The merged DataFrame.
+    """
+    merged_df = pd.merge(power_consumption_data, processed_weather_data, left_index=True, right_index=True)
+    return merged_df
+
