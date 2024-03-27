@@ -1,23 +1,5 @@
 import pandas as pd
-
-def import_data_1(file):
-    return file
-
-
-def import_data_2(file):
-    return file
-
-
-def import_data_3(file):
-    return file
-
-
-def transform_data(file1, file2, file3):
-    transformed_file = ""
-    return transformed_file
-
-
-
+from typing import Dict
 
 def prepare_power_consumption_data(consumptions: pd.DataFrame) -> pd.DataFrame:
     """
@@ -53,3 +35,20 @@ def prepare_power_consumption_data(consumptions: pd.DataFrame) -> pd.DataFrame:
     consumptions_df = consumptions.resample('D').sum()
 
     return consumptions_df
+
+
+def prepare_weather_data(weather_data_part1: pd.DataFrame, 
+                         weather_data_part2: pd.DataFrame) -> pd.DataFrame:
+    """
+    Concatenates two parts of weather data into a single DataFrame.
+
+    Args:
+        weather_data_part1 (pd.DataFrame): The first part of the weather data.
+        weather_data_part2 (pd.DataFrame): The second part of the weather data.
+
+    Returns:
+        pd.DataFrame: The concatenated DataFrame.
+    """
+    weather_df = pd.concat([weather_data_part1, weather_data_part2])
+    return weather_df
+
