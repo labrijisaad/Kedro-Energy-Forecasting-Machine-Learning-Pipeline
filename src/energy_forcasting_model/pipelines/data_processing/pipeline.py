@@ -1,6 +1,6 @@
 from kedro.pipeline import Pipeline, node, pipeline
 
-from .nodes import transform_data, import_data_1, import_data_2, import_data_3
+from .nodes import transform_data, import_data_1, import_data_2, import_data_3, prepare_power_consumption_data
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -33,6 +33,12 @@ def create_pipeline(**kwargs) -> Pipeline:
                 ],
                 outputs="transformed_data",
                 name="transform_data",
+            ),
+            node(
+                func=prepare_power_consumption_data,
+                inputs="household_power_consumption",
+                outputs="preprocessed_power_consumption",
+                name="prepare_power_consumption_data_node",
             ),
         ]
     )

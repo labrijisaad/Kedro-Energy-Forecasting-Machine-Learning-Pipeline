@@ -1,3 +1,17 @@
+household_power_consumption:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/household_power_consumption.csv
+  load_args:
+    sep: ";"
+    header: 0
+    na_values: ["?"]
+    dtype:
+      Date: str
+      Time: str
+      Global_active_power: float64
+
+
+
 jours_feries_metropole:
   type: pandas.CSVDataset
   filepath: data/01_raw/jours_feries_metropole.csv
