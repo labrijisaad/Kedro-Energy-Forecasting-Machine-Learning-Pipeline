@@ -113,3 +113,23 @@ def merge_consumption_and_weather_data(power_consumption_data: pd.DataFrame,
     merged_df = pd.merge(power_consumption_data, processed_weather_data, left_index=True, right_index=True)
     return merged_df
 
+def mark_holidays(df: pd.DataFrame, holidays: pd.DataFrame) -> pd.DataFrame:
+    """
+    Adds an 'is_holiday' column to the DataFrame, indicating whether each date is a holiday.
+
+    Args:
+        df (pd.DataFrame): The DataFrame to be augmented with the 'is_holiday' column.
+        holidays (pd.DataFrame): DataFrame containing holiday dates.
+
+    Returns:
+        pd.DataFrame: The augmented DataFrame with an 'is_holiday' column.
+    """
+    # Convert the list of dates to a set for faster lookup
+    holidays_set = set(holidays['date'].dt.date)
+
+    # Convert the DataFrame index to a Series of dates for the isin() comparison
+    index_as_series = pd.Series(df.index.date)
+
+    # Add a new column 'is_holiday' to the DataFrame
+    df['is_holiday'] = index_as_series.isin(holidays_set)
+    return df
