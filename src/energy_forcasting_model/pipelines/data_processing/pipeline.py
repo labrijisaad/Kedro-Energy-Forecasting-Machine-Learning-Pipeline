@@ -37,8 +37,11 @@ def create_pipeline(**kwargs) -> Pipeline:
             node(
                 func=mark_holidays,
                 inputs=["weather_and_consumption_data", "french_holidays"],
-                outputs="final_weather_and_consumption_data",
+                outputs="processed_weather_and_consumption_data",
                 name="mark_holidays_node",
             ),
-        ]
+        ],
+        namespace="data_processing",
+        inputs=["household_power_consumption", "weather_data_part1", "weather_data_part2", "french_holidays"],
+        outputs="final_weather_and_consumption_data",
     )

@@ -1,5 +1,29 @@
-# This is a boilerplate parameters config generated for pipeline 'data_processing'
-# using Kedro 0.19.3.
-#
-# Documentation for this file format can be found in "Parameters"
-# Link: https://docs.kedro.org/en/0.19.3/configuration/parameters.html
+data_processing.data_processing:
+  date_interval:
+    start_date: '2006-12-16'
+    end_date: '2010-11-26'
+  column_to_encode: conditions
+  columns_to_keep:
+    - tempmax
+    - tempmin
+    - temp
+    - feelslikemax
+    - feelslikemin
+    - feelslike
+    - dew
+    - humidity
+    - precip
+    - precipprob
+    - precipcover
+    - snow
+    - snowdepth
+    - windgust
+    - windspeed
+    - winddir
+    - sealevelpressure
+    - cloudcover
+    - visibility
+    - sunrise
+    - sunset
+    - moonphase
+    - conditions

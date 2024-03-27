@@ -32,5 +32,8 @@ weather_data_part2:
 french_holidays:
   type: pandas.CSVDataset
   filepath: data/01_raw/french_holidays.csv
+  load_args:
+    parse_dates: ['date']
+    sep: ","
 
 
