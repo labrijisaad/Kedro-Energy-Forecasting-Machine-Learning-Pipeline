@@ -6,6 +6,7 @@ kedro-viz>=6.7.0
 # Software development 
 python-dotenv
 tqdm
+black
 
 # Data science
 scikit-learn
