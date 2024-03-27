@@ -149,3 +149,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# stats
+stats.json
+
+# huge raw data
+data/01_raw/household_power_consumption.csv
