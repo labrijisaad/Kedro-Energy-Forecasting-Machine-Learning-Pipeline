@@ -31,6 +31,14 @@ clean:
 	@$(DELETE_CMD) $(VENV_NAME)
 	@echo ">>>>>> Cleaned up environment <<<<<<"
 
+# run Kedro pipelines 
+run:
+	@kedro run
+
+# run Kedro Viz
+viz:
+	@kedro viz run
+
 # Display available make targets
 help:
 	@echo Available targets:
