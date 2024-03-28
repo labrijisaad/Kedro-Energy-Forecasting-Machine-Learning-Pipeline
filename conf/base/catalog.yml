@@ -51,3 +51,10 @@ processed_weather_and_consumption_data:
 created_features_short_term_model:
   type: json.JSONDataset
   filepath: data/04_reporting/created_features_list.json
+
+# train / test split visualization 
+train_test_split_visualization:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/04_reporting/train_test_split_visualization.png
+  save_args:
+    format: png
