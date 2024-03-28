@@ -8,17 +8,8 @@ conf/local/**
 # ignore potentially sensitive credentials files
 conf/**/*credentials*
 
-# ignore everything in the following folders
-data/**
-
-# except their sub-folders
-!data/**/
-
 # also keep all .gitkeep files
 !.gitkeep
-
-# keep also the example dataset
-!data/01_raw/*
 
 
 ##########################
@@ -155,6 +146,3 @@ stats.json
 
 # session store
 session_store.db
-
-# huge raw data
-data/01_raw/household_power_consumption.csv
