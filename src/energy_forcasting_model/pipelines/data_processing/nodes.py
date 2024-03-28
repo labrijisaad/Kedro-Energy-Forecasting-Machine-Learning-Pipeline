@@ -139,15 +139,15 @@ def mark_holidays(df: pd.DataFrame, holidays_df: pd.DataFrame) -> pd.DataFrame:
     - holidays_df: pd.DataFrame with a column 'date' that contains holiday dates.
 
     Returns:
-    - pd.DataFrame: The original DataFrame with an added boolean column 'is_holiday' 
+    - pd.DataFrame: The original DataFrame with an added boolean column 'is_holiday'
                     indicating whether each date is a holiday.
     """
     # Convert the 'date' column in holidays_df to pandas datetime
-    holidays_df['date'] = pd.to_datetime(holidays_df['date'])
+    holidays_df["date"] = pd.to_datetime(holidays_df["date"])
 
     # Convert the list of dates to a set for faster lookup
-    french_holidays_set = set(holidays_df['date'])
+    french_holidays_set = set(holidays_df["date"])
 
     # Add a new column 'is_holiday' to the DataFrame, marking rows that match dates in the holidays set
-    df['is_holiday'] = df.index.isin(french_holidays_set)
+    df["is_holiday"] = df.index.isin(french_holidays_set)
     return df
