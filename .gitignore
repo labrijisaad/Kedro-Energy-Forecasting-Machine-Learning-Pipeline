@@ -153,5 +153,8 @@ venv.bak/
 # stats
 stats.json
 
+# session store
+session_store.db
+
 # huge raw data
 data/01_raw/household_power_consumption.csv
