@@ -41,3 +41,13 @@ french_holidays:
 processed_weather_and_consumption_data:
   type: pandas.CSVDataset
   filepath: data/02_processed/processed_weather_and_consumption_data.csv
+  save_args:
+    index: true  # Ensure the index is saved to the CSV
+  load_args:
+    index_col: 0  # Load the first column as the index
+    parse_dates: [0]  # Interpret the first column (index) as dates
+
+# Created Features short term model
+created_features_short_term_model:
+  type: json.JSONDataset
+  filepath: data/04_reporting/created_features_list.json
