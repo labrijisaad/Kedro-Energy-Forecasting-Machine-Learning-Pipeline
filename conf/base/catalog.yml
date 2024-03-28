@@ -1,9 +1,10 @@
 # Energy data
 household_power_consumption:
   type: pandas.CSVDataset
-  filepath: data/01_raw/household_power_consumption.csv
+  filepath: data/01_raw/household_power_consumption.zip
   load_args:
     sep: ";"
+    compression: zip
     header: 0
     na_values: ["?"]
     dtype:
@@ -36,4 +37,7 @@ french_holidays:
     parse_dates: ['date']
     sep: ","
 
-
+# Processed Weather and consumption data
+processed_weather_and_consumption_data:
+  type: pandas.CSVDataset
+  filepath: data/02_processed/processed_weather_and_consumption_data.csv

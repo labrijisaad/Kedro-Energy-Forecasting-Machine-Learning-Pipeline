@@ -1,10 +1,12 @@
 from kedro.pipeline import Pipeline, node, pipeline
 
-from .nodes import (prepare_power_consumption_data, 
-                    prepare_weather_data, 
-                    preprocess_weather_data,
-                    merge_consumption_and_weather_data,
-                    mark_holidays)
+from .nodes import (
+    prepare_power_consumption_data,
+    prepare_weather_data,
+    preprocess_weather_data,
+    merge_consumption_and_weather_data,
+    mark_holidays,
+)
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -42,6 +44,11 @@ def create_pipeline(**kwargs) -> Pipeline:
             ),
         ],
         namespace="data_processing",
-        inputs=["household_power_consumption", "weather_data_part1", "weather_data_part2", "french_holidays"],
-        outputs="final_weather_and_consumption_data",
+        inputs=[
+            "household_power_consumption",
+            "weather_data_part1",
+            "weather_data_part2",
+            "french_holidays",
+        ],
+        outputs="processed_weather_and_consumption_data",
     )

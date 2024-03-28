@@ -1,6 +1,7 @@
 """energy-forcasting-model file for ensuring the package is executable
 as `energy-forcasting-model` and `python -m energy_forcasting_model`
 """
+
 import importlib
 from pathlib import Path
 
