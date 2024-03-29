@@ -4,6 +4,7 @@ import matplotlib.dates as mdates
 import xgboost as xgb
 import seaborn as sns
 
+
 def create_features(df: pd.DataFrame, feature_params: dict):
     """
     Create time series features based on time series index and add lag and rolling features for specified columns.
@@ -36,7 +37,11 @@ def create_features(df: pd.DataFrame, feature_params: dict):
         for window in window_sizes:
             rolling_mean_name = f"{column_name}_rolling_mean_{window}"
             rolling_mean_features.append(
-                df[column_name].shift(1).rolling(window=window).mean().rename(rolling_mean_name)
+                df[column_name]
+                .shift(1)
+                .rolling(window=window)
+                .mean()
+                .rename(rolling_mean_name)
             )
 
     # Concatenate lag features and rolling window features
@@ -156,26 +161,30 @@ def plot_feature_importance(trained_model, X_train):
     Generates a plot of the top 10 features based on importance from a trained XGBoost model.
     """
     # Extracting feature importances
-    feature_data_xgb = pd.DataFrame({
-        'Feature': X_train.columns, 
-        'Importance': trained_model.feature_importances_,
-        'Model': 'XGBoost'
-    })
+    feature_data_xgb = pd.DataFrame(
+        {
+            "Feature": X_train.columns,
+            "Importance": trained_model.feature_importances_,
+            "Model": "XGBoost",
+        }
+    )
 
     # Sort by importance and select top 10 features
-    top_features_xgb = feature_data_xgb.sort_values(by='Importance', ascending=False).head(10)
+    top_features_xgb = feature_data_xgb.sort_values(
+        by="Importance", ascending=False
+    ).head(10)
 
     # Plotting
-    fig, ax = plt.subplots(figsize=(10, 6))  
+    fig, ax = plt.subplots(figsize=(10, 6))
 
     # XGBoost
-    sns.barplot(data=top_features_xgb, x='Importance', y='Feature', ax=ax)
-    ax.set_title('XGBoost: Top 10 Features', fontsize=16)
-    ax.set_xlabel('Feature Importance', fontsize=12)
-    ax.set_ylabel('Feature', fontsize=12)
+    sns.barplot(data=top_features_xgb, x="Importance", y="Feature", ax=ax)
+    ax.set_title("XGBoost: Top 10 Features", fontsize=16)
+    ax.set_xlabel("Feature Importance", fontsize=12)
+    ax.set_ylabel("Feature", fontsize=12)
 
     plt.tight_layout()
-    plt.close(fig) 
+    plt.close(fig)
 
     return fig
 
@@ -184,42 +193,56 @@ def plot_real_data_and_predictions(X_test, y_test, trained_model, params):
     """
     Generates a plot comparing the actual consumption data with XGBoost model predictions.
     """
-    
+
     # Generating predictions
     predictions = trained_model.predict(X_test)
-    
+
     # Converting y_test to DataFrame for ease of plotting
     y_test_df = pd.DataFrame(y_test)
-    y_test_df.columns = ['total_consumption']  # Naming the actual values column
-    
+    y_test_df.columns = ["total_consumption"]  # Naming the actual values column
+
     # Adding XGBoost predictions
-    y_test_df['XGBoost_Prediction'] = predictions
-    
+    y_test_df["XGBoost_Prediction"] = predictions
+
     # Ensure the index is in datetime format for plotting
     y_test_df.index = pd.to_datetime(y_test_df.index)
-    
+
     # Extracting threshold for plotting
     threshold = pd.to_datetime(params["threshold"])
 
     # Plotting
     fig, ax = plt.subplots(figsize=(14, 8))
-    ax.plot(y_test_df.index, y_test_df['total_consumption'], label='Test Data', color='forestgreen', linewidth=2)
-    ax.scatter(y_test_df.index, y_test_df['XGBoost_Prediction'], label='XGBoost Predictions', color='red', s=10)
-    
+    ax.plot(
+        y_test_df.index,
+        y_test_df["total_consumption"],
+        label="Test Data",
+        color="forestgreen",
+        linewidth=2,
+    )
+    ax.scatter(
+        y_test_df.index,
+        y_test_df["XGBoost_Prediction"],
+        label="XGBoost Predictions",
+        color="red",
+        s=10,
+    )
+
     # Adding a vertical line for the threshold
-    ax.axvline(x=threshold, color='black', linestyle='--', linewidth=2, label='Threshold')
+    ax.axvline(
+        x=threshold, color="black", linestyle="--", linewidth=2, label="Threshold"
+    )
 
     # Setting the major locator and formatter for the x-axis to display years
     ax.xaxis.set_major_locator(mdates.YearLocator())
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     plt.xticks(rotation=45)
-    
+
     # Setting titles and labels
     ax.set_title("Test Data and XGBoost Predictions", fontsize=16)
     ax.set_xlabel("Date", fontsize=14)
     ax.set_ylabel("Value", fontsize=14)
     ax.legend()
-    
+
     plt.tight_layout()
     plt.close(fig)
 

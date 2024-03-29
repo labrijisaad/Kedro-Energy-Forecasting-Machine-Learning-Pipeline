@@ -9,6 +9,7 @@ from .nodes import (
     plot_real_data_and_predictions,
 )
 
+
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline(
         [
@@ -67,29 +68,37 @@ def create_pipeline(**kwargs) -> Pipeline:
                 func=plot_feature_importance,
                 inputs=[
                     "short_term_xgboost_model",
-                    "X_train_short_term_model", 
+                    "X_train_short_term_model",
                 ],
                 outputs="xgboost_feature_importance_short_term_plot",
                 name="plot_feature_importance_node",
-                tags=["feature_importance", "visualization", "xgboost", "short_term_model_training"],
+                tags=[
+                    "feature_importance",
+                    "visualization",
+                    "xgboost",
+                    "short_term_model_training",
+                ],
             ),
             node(
                 func=plot_real_data_and_predictions,
-                inputs=["X_test_short_term_model", 
-                       "y_test_short_term_model", 
-                       "short_term_xgboost_model", 
-                       "params:feature_splitting_short_term_model"],
+                inputs=[
+                    "X_test_short_term_model",
+                    "y_test_short_term_model",
+                    "short_term_xgboost_model",
+                    "params:feature_splitting_short_term_model",
+                ],
                 outputs="real_data_and_xgboost_predictions_plot",
                 name="plot_real_data_and_predictions_node",
                 tags=["data_visualization", "xgboost", "short_term_model_training"],
             ),
-
         ],
         tags="short_term_model_training",
         namespace="short_term_model_training",
         inputs="processed_weather_and_consumption_data",
-        outputs=["train_test_split_visualization",
-                 "short_term_xgboost_model",
-                 "xgboost_feature_importance_short_term_plot",
-                 "real_data_and_xgboost_predictions_plot"]
+        outputs=[
+            "train_test_split_visualization",
+            "short_term_xgboost_model",
+            "xgboost_feature_importance_short_term_plot",
+            "real_data_and_xgboost_predictions_plot",
+        ],
     )
