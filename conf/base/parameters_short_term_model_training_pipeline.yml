@@ -2,6 +2,7 @@ short_term_model_training_pipeline.feature_splitting_short_term_model:
   target:  total_consumption 
   threshold:  2010-05-17 
 
+# Parameters specific to the XGBoost model
 short_term_model_training_pipeline.xgboost_model_params:
   base_score: 0.5
   booster: 'gbtree'
@@ -18,3 +19,8 @@ short_term_model_training_pipeline.xgboost_model_params:
       'conditions_snowrain', 'conditions_snowrainovercast', 'conditions_snowrainpartiallycloudy'
     ]
 
+# Parameters specific to the Random Forest model
+short_term_model_training_pipeline.random_forest_model_params:
+  n_estimators: 600
+  max_depth: 3
+  random_state: 42

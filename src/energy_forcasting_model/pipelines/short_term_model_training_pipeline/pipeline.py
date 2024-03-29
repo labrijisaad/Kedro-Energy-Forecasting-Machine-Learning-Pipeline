@@ -5,6 +5,8 @@ from .nodes import (
     plot_feature_importance,
     generate_predictions,
     plot_real_data_and_predictions_with_train,
+    train_random_forest_model,
+    plot_feature_importance_rf
 )
 
 
@@ -59,6 +61,33 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="plot_real_data_and_predictions_node",
                 tags=["data_visualization", "xgboost", "short_term_model_training"],
             ),
+            node(
+                func=train_random_forest_model,
+                inputs=["X_train_short_term_model", "y_train_short_term_model", "params:random_forest_model_params"],
+                outputs="short_term_random_forest_model",
+                name="train_random_forest_model_node"
+            ),
+            # Node 2: Plot Feature Importance for Random Forest
+            node(
+                func=plot_feature_importance_rf,
+                inputs=["short_term_random_forest_model", "X_train_short_term_model"],
+                outputs="random_forest_feature_importance_plot",
+                name="plot_feature_importance_rf_node"
+            ),
+            # Node 3: Generate Predictions with Random Forest
+            node(
+                func=generate_predictions,
+                inputs=["X_test_short_term_model", "short_term_random_forest_model"],
+                outputs="random_forest_predictions",
+                name="generate_rf_predictions_node"
+            ),
+            # Node 4: Plot Real Data and Predictions (Random Forest)
+            node(
+                func=plot_real_data_and_predictions_with_train,
+                inputs=["y_train_short_term_model", "y_test_short_term_model", "random_forest_predictions", "params:feature_splitting_short_term_model"],
+                outputs="real_data_and_rf_predictions_plot",
+                name="plot_real_data_and_rf_predictions_node"
+            ),
         ],
         tags="short_term_model_training",
         namespace="short_term_model_training_pipeline",
@@ -72,5 +101,8 @@ def create_pipeline(**kwargs) -> Pipeline:
             "short_term_xgboost_model",
             "xgboost_feature_importance_short_term_plot",
             "real_data_and_xgboost_predictions_plot",
+            "short_term_random_forest_model",
+            "random_forest_feature_importance_plot",
+            "real_data_and_rf_predictions_plot"
         ],
     )

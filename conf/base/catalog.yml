@@ -100,9 +100,15 @@ train_test_split_visualization:
     format: png
 
 # Short term trained xgboost model
-short_term_xgboost_model: # simple example without compression
+short_term_xgboost_model:
   type: pickle.PickleDataset
   filepath: data/05_model_output/short_term_xgboost_model.pkl
+  backend: pickle
+
+# Short term trained Random Forest model
+short_term_random_forest_model:
+  type: pickle.PickleDataset
+  filepath: data/05_model_output/short_term_random_forest_model.pkl
   backend: pickle
 
 # xgboost feature importance plot
@@ -112,9 +118,23 @@ xgboost_feature_importance_short_term_plot:
   save_args:
     format: png
 
+# Random Forest feature importance plot
+random_forest_feature_importance_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/04_reporting/random_forest_feature_importance_plot.png
+  save_args:
+    format: png
+
 # real_data_and_xgboost_predictions_plot 
 real_data_and_xgboost_predictions_plot:
   type: matplotlib.MatplotlibWriter
   filepath: data/04_reporting/real_data_and_xgboost_predictions_plot.png
+  save_args:
+    format: png
+
+# real_data_and_rf_predictions_plot 
+real_data_and_rf_predictions_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/04_reporting/real_data_and_rf_predictions_plot.png
   save_args:
     format: png

@@ -4,6 +4,8 @@ import matplotlib.dates as mdates
 import xgboost as xgb
 import seaborn as sns
 
+from sklearn.ensemble import RandomForestRegressor
+
 
 # Node 1
 def train_xgboost_model(X_train, y_train, params):
@@ -145,4 +147,35 @@ def plot_real_data_and_predictions_with_train(y_train, y_test, predictions, para
     plt.tight_layout()
     plt.close(fig)
 
+    return fig
+
+
+def train_random_forest_model(X_train, y_train, params):
+    """
+    Trains a Random Forest regression model using the given training data and parameters.
+    """
+    rfr_model = RandomForestRegressor(
+        n_estimators=params.get("n_estimators", 600),
+        max_depth=params.get("max_depth", 3),
+        random_state=params.get("random_state", 42)
+    )
+    rfr_model.fit(X_train, y_train)
+    return rfr_model
+
+def plot_feature_importance_rf(trained_model, X_train):
+    """
+    Generates a plot of the top 10 features based on importance from a trained Random Forest model.
+    """
+    feature_importances = pd.DataFrame(
+        {"Feature": X_train.columns, "Importance": trained_model.feature_importances_}
+    ).sort_values("Importance", ascending=False).head(10)
+
+    fig, ax = plt.subplots(figsize=(20, 10))
+    sns.barplot(data=feature_importances, x="Importance", y="Feature", ax=ax)
+    ax.set_title("Random Forest: Top 10 Features", fontsize=16)
+    ax.set_xlabel("Feature Importance", fontsize=12)
+    ax.set_ylabel("Feature", fontsize=12)
+    
+    plt.tight_layout()
+    plt.close(fig)
     return fig
