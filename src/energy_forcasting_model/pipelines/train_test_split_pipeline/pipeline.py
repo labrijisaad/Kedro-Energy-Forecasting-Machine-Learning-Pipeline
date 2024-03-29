@@ -27,7 +27,6 @@ def create_pipeline(**kwargs) -> Pipeline:
                 inputs=[
                     "y_train",
                     "y_test",
-                    "params:feature_splitting",
                 ],
                 outputs="train_test_split_visualization",
                 name="train_test_split_plot_node",

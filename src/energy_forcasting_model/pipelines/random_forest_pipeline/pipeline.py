@@ -38,7 +38,6 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "y_train",
                     "y_test",
                     "rf_predictions",
-                    "params:random_forest_model_params",
                 ],
                 outputs="real_data_and_rf_predictions_plot",
                 name="plot_real_data_and_rf_predictions_node",

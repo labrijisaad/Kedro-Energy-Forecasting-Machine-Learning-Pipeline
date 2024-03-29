@@ -1,9 +1,12 @@
-import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import numpy as np
+import pandas as pd
 import seaborn as sns
 import logging
 
+
+from sklearn.metrics import mean_squared_error
 from sklearn.ensemble import RandomForestRegressor
 
 
@@ -72,61 +75,43 @@ def generate_predictions(X_test, trained_model):
     return predictions
 
 
-# Node 4
-def plot_real_data_and_predictions_with_train(y_train, y_test, predictions, params):
+
+
+def plot_real_data_and_predictions_with_train(y_train, y_test, predictions):
     """
-    Generates a plot comparing the actual consumption data with model predictions
-    and includes training data.
+    Generates a plot comparing the actual data with model predictions and includes training data,
+    and displays the RMSE score.
     """
+    # Initialize logger
+    logger = logging.getLogger(__name__)
+    
+    # Calculate RMSE
+    rmse = np.sqrt(mean_squared_error(y_test, predictions))
+    logger.info(f"RMSE for the test set: {rmse:.2f}")
 
-    # Target column name
-    TARGET = params["target"]
-    # Converting y_test and y_train to DataFrame
-    y_test_df = pd.DataFrame(y_test, columns=[TARGET])
-    y_train_df = pd.DataFrame(y_train, columns=[TARGET])
+    # Create the figure and axes objects
+    fig, ax = plt.subplots(figsize=(18, 7))
 
-    # Adding predictions to the test DataFrame
-    y_test_df["Model_Prediction"] = predictions
+    # Plot training data
+    ax.plot(y_train.index, y_train, label="Training Data", color="blue", linewidth=2)
 
-    # Train / Test split threshold
-    threshold = pd.to_datetime(params["threshold"])
+    # Plot test data
+    ax.plot(y_test.index, y_test, label="Test Data", color="forestgreen", linewidth=2)
 
-    # Plotting
-    fig, ax = plt.subplots(figsize=(20, 10))
-    ax.plot(
-        y_train_df.index,
-        y_train_df["total_consumption"],
-        label="Training Data",
-        color="blue",
-        linewidth=2,
-    )
-    ax.plot(
-        y_test_df.index,
-        y_test_df["total_consumption"],
-        label="Test Data",
-        color="forestgreen",
-        linewidth=2,
-    )
-    ax.scatter(
-        y_test_df.index,
-        y_test_df["Model_Prediction"],
-        label="Model Predictions",
-        color="red",
-        s=10,
-    )
+    # Plot predictions
+    ax.scatter(y_test.index, predictions, label="Model Predictions", color="red", s=10)
 
-    # Adding a vertical line for the threshold for visual separation
-    ax.axvline(
-        x=threshold, color="black", linestyle="--", linewidth=2, label="Threshold"
-    )
+    # Find the last date of the training set to add a vertical line for visual separation
+    last_train_date = y_train.index[-1]
+    ax.axvline(x=last_train_date, color="black", linestyle="--", linewidth=2, label="Train/Test Split")
 
-    # Setting the major locator and formatter for the x-axis
+    # Formatting the date axis
     ax.xaxis.set_major_locator(mdates.YearLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     plt.xticks(rotation=45)
 
-    # Setting titles and labels
-    ax.set_title("Training, Test Data and Model Predictions", fontsize=16)
+    # Setting titles and labels with RMSE score
+    ax.set_title(f"Training, Test Data and Model Predictions - RMSE: {rmse:.2f}", fontsize=16)
     ax.set_xlabel("Date", fontsize=14)
     ax.set_ylabel("Value", fontsize=14)
     ax.legend()

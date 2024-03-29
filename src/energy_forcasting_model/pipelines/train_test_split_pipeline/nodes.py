@@ -1,6 +1,6 @@
-import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import pandas as pd
 
 
 # Node 2
@@ -31,27 +31,19 @@ def prepare_train_test_sets(featured_data, created_features_list, params):
 
 
 # Node 3
-def train_test_split_plot(y_train, y_test, params):
+def train_test_split_plot(y_train, y_test):
     """
-    Generates a plot visualizing the train/test split of data over time.
+    Generates a plot visualizing the train/test split of data over time, including a vertical
+    line to indicate the split point.
     """
-    threshold = pd.to_datetime(params["threshold"])
-
     # Create the figure and axes objects
-    fig, ax = plt.subplots(figsize=(20, 10))
+    fig, ax = plt.subplots(figsize=(18, 6))
 
     # Enhancing the plot aesthetics
     ax.plot(
         y_train.index, y_train, label="Training Set", color="dodgerblue", linewidth=2
     )
     ax.plot(y_test.index, y_test, label="Test Set", color="coral", linewidth=2)
-    ax.axvline(
-        x=threshold,
-        color="dimgray",
-        linestyle="--",
-        linewidth=2,
-        label="Train/Test Split Date",
-    )
 
     # Formatting the date axis
     ax.xaxis.set_major_locator(mdates.YearLocator())
@@ -69,8 +61,13 @@ def train_test_split_plot(y_train, y_test, params):
     ax.grid(True, which="both", linestyle="--", linewidth=0.5)
     ax.legend(frameon=True, framealpha=0.9, shadow=True, borderpad=1)
 
+    # Find the last date of the training set and add a vertical line
+    last_train_date = y_train.index[-1]
+    ax.axvline(x=last_train_date, color="grey", linestyle="--", linewidth=2, label="Train/Test Split")
+
     # Adjusting the layout
     plt.tight_layout()
 
     plt.close(fig)
     return fig
+

@@ -54,7 +54,6 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "y_train",
                     "y_test",
                     "xgboost_model_predictions",
-                    "params:xgboost_model_params",
                 ],
                 outputs="real_data_and_xgboost_predictions_plot",
                 name="plot_real_data_and_predictions_node",
