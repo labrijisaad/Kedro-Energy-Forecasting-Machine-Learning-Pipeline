@@ -1,99 +1,85 @@
-# energy-forcasting-model
+# `Kedro` Machine Learning Pipeline 🏯
 
-## Overview
+<p align="center">
+  <img src="DALL·E 2024-03-30 00.33.52 - Craft a wide image in a Japanese style that encapsulates the pure essence of Kedro for machine learning pipelines. Picture a serene, stylized landscap.webp" width="70%" />
+</p>
 
-This is your new Kedro project with Kedro-Viz setup, which was generated using `kedro 0.19.3`.
+<blockquote align="center">
+  <i>"This DALL-E generated image, within Japan, Kedro orchestrates the rhythm of renewable insights amidst the choreography of data and predictions."</i>
+</blockquote>
 
-Take a look at the [Kedro documentation](https://docs.kedro.org) to get started.
+## 📘 Introduction
 
-## Rules and guidelines
+In this project, I challenged myself to transform notebook-based code for model training into a Kedro pipeline. The idea is to create modular, simple-to-train pipelines following the best MLOPS practices, to simplify the deployment of ML models.
 
-In order to get the best out of the template:
+## 🎯 Project Goals
 
-* Don't remove any lines from the `.gitignore` file we provide
-* Make sure your results can be reproduced by following a [data engineering convention](https://docs.kedro.org/en/stable/faq/faq.html#what-is-data-engineering-convention)
-* Don't commit data to your repository
-* Don't commit any credentials or your local configuration to your repository. Keep all your credentials and local configuration in `conf/local/`
+The objective was :
+- Refine a raw energy dataset into a polished series of features ready for forecasting.
+- Deploy daily and monthly prediction models grounded in historical patterns.
+- Adopt the Kedro framework to produce reproducible, modular, and scalable workflows.
 
-## How to install dependencies
+## 🧩 Project Workflow
 
-Declare any dependencies in `requirements.txt` for `pip` installation.
+The `src` directory is the essence, with each component neatly arranged in a Kedro pipeline:
 
-To install them, run:
+- **Data Processing**: Standardizes and cleans the raw energy and weather data.
+- **Feature Engineering**: Cultivates predictors that will fuel our machine learning models.
+- **Model Training**: Constructs separate pipelines for XGboost and Random Forest, each responsible for its own predictive prowess.
+- **Model Evaluation**: A dedicated pipeline assesses performance, crystallizing predictions against reality.
 
-```
-pip install -r requirements.txt
-```
+### Kedro Visualization
 
-## How to run your Kedro pipeline
+The Kedro Viz tool provides an interactive canvas to visualize and understand the pipeline structure. It illustrates data flow, dependencies, and the orchestration of nodes and pipelines.
 
-You can run your Kedro project with:
 
-```
-kedro run
-```
+## 📁 Project Structure
 
-## How to test your Kedro project
-
-Have a look at the files `src/tests/test_run.py` and `src/tests/pipelines/test_data_science.py` for instructions on how to write your tests. Run the tests as follows:
-
-```
-pytest
-```
-
-To configure the coverage threshold, look at the `.coveragerc` file.
-
-## Project dependencies
-
-To see and update the dependency requirements for your project use `requirements.txt`. Install the project requirements with `pip install -r requirements.txt`.
-
-[Further information about project dependencies](https://docs.kedro.org/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
-
-## How to work with Kedro and notebooks
-
-> Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `catalog`, `context`, `pipelines` and `session`.
->
-> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r requirements.txt` you will not need to take any extra steps before you use them.
-
-### Jupyter
-To use Jupyter notebooks in your Kedro project, you need to install Jupyter:
+A peek into the Kedro project's layout:
 
 ```
-pip install jupyter
+Kedro-Energy-Forecasting/
+│
+├── conf/                                    # Configuration files for Kedro project
+├── data/
+│   ├── 01_raw/                              # Raw, unprocessed datasets
+│   ├── 02_processed/                        # Cleaned and processed data ready for analysis
+│   ├── 03_training_data/                    # Datasets used for model training
+│   ├── 04_reporting/                        # Data for reporting and visualization
+│   └── 05_model_output/                     # Outputs from the trained models
+│
+├── notebooks/                               # Jupyter notebooks for exploratory analysis and prototyping
+├── src/
+│   ├── pipelines/                           # Sub-directories for each pipeline within the project
+│   └── nodes/                               # Individual tasks (nodes) within each pipeline
+├── logs/                                    # Generated logs from running Kedro pipelines
+├── README.md                                # Project documentation and setup guide
+└── requirements.txt                         # Project dependencies
 ```
 
-After installing Jupyter, you can start a local notebook server:
 
-```
-kedro jupyter notebook
-```
 
-### JupyterLab
-To use JupyterLab, you need to install it:
 
-```
-pip install jupyterlab
-```
+## 🚀 Getting Started
 
-You can also start JupyterLab:
+Embark on a journey from data to prediction:
 
-```
-kedro jupyter lab
-```
+1. **Clone the Repository**: Secure a local copy of the code.
+2. **Environment Setup**: Opt for a virtual environment using Conda or venv.
+3. **Install Dependencies**: Execute `pip install -r requirements.txt` within your chosen environment.
+4. **Run the Kedro Pipeline**: Invoke `kedro run` to set the wheels of prediction in motion.
 
-### IPython
-And if you want to run an IPython session:
+_Need guidance on commands? Peek into the Makefile or use `kedro --help` for assistance._
 
-```
-kedro ipython
-```
+## 🌐 Let's Connect!
 
-### How to ignore notebook output cells in `git`
-To automatically strip out all output cell contents before committing to `git`, you can use tools like [`nbstripout`](https://github.com/kynan/nbstripout). For example, you can add a hook in `.git/config` with `nbstripout --install`. This will run `nbstripout` before anything is committed to `git`.
+You can connect with me on **LinkedIn** or check out my **GitHub repositories**:
 
-> *Note:* Your output cells will be retained locally.
-
-[Further information about using notebooks for experiments within Kedro projects](https://docs.kedro.org/en/develop/notebooks_and_ipython/kedro_and_notebooks.html).
-## Package your Kedro project
-
-[Further information about building project documentation and packaging your project](https://docs.kedro.org/en/stable/tutorial/package_a_project.html).
+<div align="center">
+  <a href="https://www.linkedin.com/in/labrijisaad/">
+    <img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
+  </a>
+  <a href="https://github.com/labrijisaad">
+    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
+  </a>
+</div>
