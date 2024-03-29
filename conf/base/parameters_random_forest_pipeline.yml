@@ -1,0 +1,7 @@
+# Parameters specific to the Random Forest model
+random_forest_pipeline.random_forest_model_params:
+  n_estimators: 600
+  max_depth: 3
+  random_state: 42
+  target:  total_consumption 
+  threshold:  2010-05-17 

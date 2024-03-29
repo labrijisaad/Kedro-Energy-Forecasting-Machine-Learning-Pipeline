@@ -5,8 +5,6 @@ from .nodes import (
     plot_feature_importance,
     generate_predictions,
     plot_real_data_and_predictions_with_train,
-    train_random_forest_model,
-    plot_feature_importance_rf,
 )
 
 
@@ -55,51 +53,15 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "y_train",
                     "y_test",
                     "xgboost_model_predictions",
-                    "params:feature_splitting",
+                    "params:xgboost_model_params",
                 ],
                 outputs="real_data_and_xgboost_predictions_plot",
                 name="plot_real_data_and_predictions_node",
                 tags=["data_visualization", "xgboost", "model_training"],
             ),
-            node(
-                func=train_random_forest_model,
-                inputs=[
-                    "X_train",
-                    "y_train",
-                    "params:random_forest_model_params",
-                ],
-                outputs="random_forest_model",
-                name="train_random_forest_model_node",
-            ),
-            # Node 2: Plot Feature Importance for Random Forest
-            node(
-                func=plot_feature_importance_rf,
-                inputs=["random_forest_model", "X_train"],
-                outputs="random_forest_feature_importance_plot",
-                name="plot_feature_importance_rf_node",
-            ),
-            # Node 3: Generate Predictions with Random Forest
-            node(
-                func=generate_predictions,
-                inputs=["X_test", "random_forest_model"],
-                outputs="random_forest_predictions",
-                name="generate_rf_predictions_node",
-            ),
-            # Node 4: Plot Real Data and Predictions (Random Forest)
-            node(
-                func=plot_real_data_and_predictions_with_train,
-                inputs=[
-                    "y_train",
-                    "y_test",
-                    "random_forest_predictions",
-                    "params:feature_splitting",
-                ],
-                outputs="real_data_and_rf_predictions_plot",
-                name="plot_real_data_and_rf_predictions_node",
-            ),
         ],
         tags="model_training",
-        namespace="model_training_pipeline",
+        namespace="xgboost_training_pipeline",
         inputs=[
             "X_train",
             "y_train",
@@ -110,8 +72,5 @@ def create_pipeline(**kwargs) -> Pipeline:
             "xgboost_model",
             "xgboost_feature_importance_plot",
             "real_data_and_xgboost_predictions_plot",
-            "random_forest_model",
-            "random_forest_feature_importance_plot",
-            "real_data_and_rf_predictions_plot",
         ],
     )
