@@ -4,8 +4,9 @@ from .nodes import (
     train_xgboost_model,
     plot_feature_importance,
     generate_predictions,
-    plot_real_data_and_predictions_with_train,
 )
+
+from ..random_forest_pipeline.nodes import plot_real_data_and_predictions_with_train
 
 
 def create_pipeline(**kwargs) -> Pipeline:
