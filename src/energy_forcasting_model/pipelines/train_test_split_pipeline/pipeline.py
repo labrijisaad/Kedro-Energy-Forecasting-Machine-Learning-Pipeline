@@ -1,24 +1,11 @@
 from kedro.pipeline import Pipeline, node, pipeline
 
-from .nodes import create_features, prepare_train_test_sets, train_test_split_plot
+from .nodes import prepare_train_test_sets, train_test_split_plot
 
 
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline(
         [
-            node(  # Node 1
-                func=create_features,
-                inputs=[
-                    "processed_weather_and_consumption_data",
-                    "params:feature_engineering",
-                ],
-                outputs=[
-                    "featured_data",
-                    "created_features",
-                ],
-                name="create_features_node",
-                tags=["feature_creation"],
-            ),
             node(  # Node 2
                 func=prepare_train_test_sets,
                 inputs=[
@@ -49,7 +36,7 @@ def create_pipeline(**kwargs) -> Pipeline:
         ],
         tags="train_test_split_pipeline",
         namespace="train_test_split_pipeline",
-        inputs="processed_weather_and_consumption_data",
+        inputs=["featured_data", "created_features"],
         outputs=[
             "train_test_split_visualization",
             "X_train",
