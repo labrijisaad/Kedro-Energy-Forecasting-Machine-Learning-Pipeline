@@ -1,7 +1,7 @@
 # `Kedro` Machine Learning Pipeline 🏯
 
 <p align="center">
-  <img src="DALL·E 2024-03-30 00.33.52 - Craft a wide image in a Japanese style that encapsulates the pure essence of Kedro for machine learning pipelines. Picture a serene, stylized landscap.webp" width="70%" />
+  <img src="https://github.com/labrijisaad/Kedro-Energy-Forecasting-Machine-Learning-Pipeline/assets/74627083/b63b891c-acf0-423e-8ca0-d8baa74a51e6" width="70%" />
 </p>
 
 <blockquote align="center">
