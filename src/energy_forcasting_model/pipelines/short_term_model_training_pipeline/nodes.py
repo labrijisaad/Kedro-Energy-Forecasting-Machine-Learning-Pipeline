@@ -99,8 +99,7 @@ def plot_real_data_and_predictions_with_train(y_train, y_test, predictions, para
     # Adding predictions to the test DataFrame
     y_test_df["Model_Prediction"] = predictions
 
-
-    # Train / Test split threshold 
+    # Train / Test split threshold
     threshold = pd.to_datetime(params["threshold"])
 
     # Plotting

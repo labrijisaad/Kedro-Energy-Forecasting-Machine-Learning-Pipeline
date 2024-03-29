@@ -7,10 +7,11 @@ from .nodes import (
     plot_real_data_and_predictions_with_train,
 )
 
+
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline(
         [
-            node( # Node 1
+            node(  # Node 1
                 func=train_xgboost_model,
                 inputs=[
                     "X_train_short_term_model",
@@ -21,7 +22,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="train_xgboost_model_node",
                 tags=["model_training", "xgboost", "short_term_model_training"],
             ),
-            node( # Node 2
+            node(  # Node 2
                 func=plot_feature_importance,
                 inputs=[
                     "short_term_xgboost_model",
@@ -36,7 +37,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "short_term_model_training",
                 ],
             ),
-            node( # Node 3
+            node(  # Node 3
                 func=generate_predictions,
                 inputs=[
                     "X_test_short_term_model",
@@ -45,8 +46,8 @@ def create_pipeline(**kwargs) -> Pipeline:
                 outputs="short_term_xgboost_model_predictions",
                 name="generate_predictions_node",
                 tags=["predictions", "xgboost", "short_term_model_training"],
-            ), 
-            node( # Node 4
+            ),
+            node(  # Node 4
                 func=plot_real_data_and_predictions_with_train,
                 inputs=[
                     "y_train_short_term_model",
@@ -62,8 +63,10 @@ def create_pipeline(**kwargs) -> Pipeline:
         tags="short_term_model_training",
         namespace="short_term_model_training_pipeline",
         inputs=[
-            "X_train_short_term_model", "y_train_short_term_model",
-            "X_test_short_term_model", "y_test_short_term_model",
+            "X_train_short_term_model",
+            "y_train_short_term_model",
+            "X_test_short_term_model",
+            "y_test_short_term_model",
         ],
         outputs=[
             "short_term_xgboost_model",

@@ -49,7 +49,7 @@ def create_pipeline(**kwargs) -> Pipeline:
             ),
         ],
         tags="data_processing_pipeline",
-        namespace="data_processing",
+        namespace="data_processing_pipeline",
         inputs=[
             "household_power_consumption",
             "weather_data_part1",
