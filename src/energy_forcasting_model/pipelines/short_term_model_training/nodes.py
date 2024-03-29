@@ -23,20 +23,25 @@ def create_features(df: pd.DataFrame, feature_params: dict):
         df[feature] = getattr(df.index, feature)
         created_features.append(feature)
 
+    # Create lag features and rolling window features using pd.concat
+    lag_features = []
+    rolling_mean_features = []
     for column_name in column_names:
         # Lag features for each specified column
         for lag in lags:
             lag_feature_name = f"{column_name}_lag_{lag}"
-            df[lag_feature_name] = df[column_name].shift(lag)
-            created_features.append(lag_feature_name)
+            lag_features.append(df[column_name].shift(lag).rename(lag_feature_name))
 
         # Rolling window features for each specified column
         for window in window_sizes:
             rolling_mean_name = f"{column_name}_rolling_mean_{window}"
-            df[rolling_mean_name] = (
-                df[column_name].shift(1).rolling(window=window).mean()
+            rolling_mean_features.append(
+                df[column_name].shift(1).rolling(window=window).mean().rename(rolling_mean_name)
             )
-            created_features.append(rolling_mean_name)
+
+    # Concatenate lag features and rolling window features
+    df = pd.concat([df] + lag_features + rolling_mean_features, axis=1)
+    created_features.extend([f.name for f in lag_features + rolling_mean_features])
 
     return df, created_features
 
@@ -70,10 +75,6 @@ def prepare_train_test_sets(featured_data, created_features_list, params):
 def train_test_split_plot(y_train, y_test, params):
     """
     Generates a plot visualizing the train/test split of data over time.
-
-    This function plots the training and testing datasets to visualize the split based
-    on a threshold date. It highlights the division with a vertical line and uses
-    different colors to differentiate between the training and testing sets.
     """
     threshold = pd.to_datetime(params["threshold"])
 
