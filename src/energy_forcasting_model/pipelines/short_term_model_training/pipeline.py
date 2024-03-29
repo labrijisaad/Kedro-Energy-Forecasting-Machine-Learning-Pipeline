@@ -1,6 +1,11 @@
 from kedro.pipeline import Pipeline, node, pipeline
 
-from .nodes import create_features, prepare_train_test_sets, train_test_split_plot
+from .nodes import (
+    create_features,
+    prepare_train_test_sets,
+    train_test_split_plot,
+    train_xgboost_model,
+)
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -46,6 +51,17 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="train_test_split_plot_node",
                 tags=["train_test_split_plot", "short_term_model_training"],
             ),
+            node(
+                func=train_xgboost_model,
+                inputs=[
+                    "X_train_short_term_model",
+                    "y_train_short_term_model",
+                    "params:xgboost_model_params",
+                ],
+                outputs="trained_xgboost_model",
+                name="train_xgboost_model_node",
+                tags=["model_training", "xgboost", "short_term_model_training"],
+            ),
         ],
         tags="short_term_model_training",
         namespace="short_term_model_training",
@@ -56,5 +72,6 @@ def create_pipeline(**kwargs) -> Pipeline:
             "X_test_short_term_model",
             "y_test_short_term_model",
             "train_test_split_visualization",
+            "trained_xgboost_model",
         ],
     )

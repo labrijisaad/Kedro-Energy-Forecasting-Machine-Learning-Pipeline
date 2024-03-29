@@ -47,6 +47,46 @@ processed_weather_and_consumption_data:
     index_col: 0  # Load the first column as the index
     parse_dates: [0]  # Interpret the first column (index) as dates
 
+# X_train 
+X_train_short_term_model:
+  type: pandas.CSVDataset
+  filepath: data/03_training_data/X_train_short_term_model.csv
+  save_args:
+    index: true 
+  load_args:
+    index_col: 0
+    parse_dates: [0]
+
+# y_train
+y_train_short_term_model:
+  type: pandas.CSVDataset
+  filepath: data/03_training_data/y_train_short_term_model.csv
+  save_args:
+    index: true
+  load_args:
+    index_col: 0
+    parse_dates: [0]
+
+# X_test
+X_test_short_term_model:
+  type: pandas.CSVDataset
+  filepath: data/03_training_data/X_test_short_term_model.csv
+  save_args:
+    index: true
+  load_args:
+    index_col: 0
+    parse_dates: [0]
+
+# y_test
+y_test_short_term_model:
+  type: pandas.CSVDataset
+  filepath: data/03_training_data/y_test_short_term_model.csv
+  save_args:
+    index: true
+  load_args:
+    index_col: 0
+    parse_dates: [0]
+
 # Created Features short term model
 created_features_short_term_model:
   type: json.JSONDataset
