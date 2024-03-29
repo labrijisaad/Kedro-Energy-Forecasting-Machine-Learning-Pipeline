@@ -48,9 +48,9 @@ processed_weather_and_consumption_data:
     parse_dates: [0]  # Interpret the first column (index) as dates
 
 # X_train 
-X_train_short_term_model:
+X_train:
   type: pandas.CSVDataset
-  filepath: data/03_training_data/X_train_short_term_model.csv
+  filepath: data/03_training_data/X_train.csv
   save_args:
     index: true 
   load_args:
@@ -58,9 +58,9 @@ X_train_short_term_model:
     parse_dates: [0]
 
 # y_train
-y_train_short_term_model:
+y_train:
   type: pandas.CSVDataset
-  filepath: data/03_training_data/y_train_short_term_model.csv
+  filepath: data/03_training_data/y_train.csv
   save_args:
     index: true
   load_args:
@@ -68,9 +68,9 @@ y_train_short_term_model:
     parse_dates: [0]
 
 # X_test
-X_test_short_term_model:
+X_test:
   type: pandas.CSVDataset
-  filepath: data/03_training_data/X_test_short_term_model.csv
+  filepath: data/03_training_data/X_test.csv
   save_args:
     index: true
   load_args:
@@ -78,19 +78,19 @@ X_test_short_term_model:
     parse_dates: [0]
 
 # y_test
-y_test_short_term_model:
+y_test:
   type: pandas.CSVDataset
-  filepath: data/03_training_data/y_test_short_term_model.csv
+  filepath: data/03_training_data/y_test.csv
   save_args:
     index: true
   load_args:
     index_col: 0
     parse_dates: [0]
 
-# Created Features short term model
-created_features_short_term_model:
+# Created Features
+created_features:
   type: json.JSONDataset
-  filepath: data/04_reporting/created_features_list.json
+  filepath: data/04_reporting/created_features.json
 
 # train / test split visualization 
 train_test_split_visualization:
@@ -99,22 +99,22 @@ train_test_split_visualization:
   save_args:
     format: png
 
-# Short term trained xgboost model
-short_term_xgboost_model:
+# Trained xgboost model
+xgboost_model:
   type: pickle.PickleDataset
-  filepath: data/05_model_output/short_term_xgboost_model.pkl
+  filepath: data/05_model_output/xgboost_model.pkl
   backend: pickle
 
-# Short term trained Random Forest model
-short_term_random_forest_model:
+# Trained Random Forest model
+random_forest_model:
   type: pickle.PickleDataset
-  filepath: data/05_model_output/short_term_random_forest_model.pkl
+  filepath: data/05_model_output/random_forest_model.pkl
   backend: pickle
 
 # xgboost feature importance plot
-xgboost_feature_importance_short_term_plot:
+xgboost_feature_importance:
   type: matplotlib.MatplotlibWriter
-  filepath: data/04_reporting/xgboost_feature_importance_short_term_plot.png
+  filepath: data/04_reporting/xgboost_feature_importance.png
   save_args:
     format: png
 

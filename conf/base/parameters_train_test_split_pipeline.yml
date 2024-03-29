@@ -1,4 +1,4 @@
-short_term_train_test_split_pipeline.feature_engineering_short_term_model:
+train_test_split_pipeline.feature_engineering:
   basic_features:
     - dayofweek
     - quarter
@@ -39,6 +39,6 @@ short_term_train_test_split_pipeline.feature_engineering_short_term_model:
     - 90
     - 365
 
-short_term_train_test_split_pipeline.feature_splitting_short_term_model:
+train_test_split_pipeline.feature_splitting:
   target:  total_consumption 
   threshold:  2010-05-17 
