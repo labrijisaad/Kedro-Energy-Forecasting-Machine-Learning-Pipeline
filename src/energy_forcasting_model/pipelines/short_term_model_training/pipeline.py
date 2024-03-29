@@ -6,14 +6,15 @@ from .nodes import (
     train_test_split_plot,
     train_xgboost_model,
     plot_feature_importance,
-    plot_real_data_and_predictions,
+    generate_predictions,
+    plot_real_data_and_predictions_with_train,
 )
 
 
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline(
         [
-            node(
+            node(  # Node 1
                 func=create_features,
                 inputs=[
                     "processed_weather_and_consumption_data",
@@ -26,7 +27,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="create_features_node",
                 tags=["feature_creation", "short_term_model_training"],
             ),
-            node(
+            node(  # Node 2
                 func=prepare_train_test_sets,
                 inputs=[
                     "featured_data_short_term_model",
@@ -42,7 +43,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="train_test_split_node",
                 tags=["data_splitting", "short_term_model_training"],
             ),
-            node(
+            node(  # Node 3
                 func=train_test_split_plot,
                 inputs=[
                     "y_train_short_term_model",
@@ -53,7 +54,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="train_test_split_plot_node",
                 tags=["train_test_split_plot", "short_term_model_training"],
             ),
-            node(
+            node(  # Node 4
                 func=train_xgboost_model,
                 inputs=[
                     "X_train_short_term_model",
@@ -64,7 +65,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="train_xgboost_model_node",
                 tags=["model_training", "xgboost", "short_term_model_training"],
             ),
-            node(
+            node(  # Node 5
                 func=plot_feature_importance,
                 inputs=[
                     "short_term_xgboost_model",
@@ -79,12 +80,22 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "short_term_model_training",
                 ],
             ),
-            node(
-                func=plot_real_data_and_predictions,
+            node(  # Node 6
+                func=generate_predictions,
                 inputs=[
                     "X_test_short_term_model",
-                    "y_test_short_term_model",
                     "short_term_xgboost_model",
+                ],
+                outputs="short_term_xgboost_model_predictions",
+                name="generate_predictions_node",
+                tags=["predictions", "xgboost", "short_term_model_training"],
+            ),
+            node(  # Node 7
+                func=plot_real_data_and_predictions_with_train,
+                inputs=[
+                    "y_train_short_term_model",
+                    "y_test_short_term_model",
+                    "short_term_xgboost_model_predictions",
                     "params:feature_splitting_short_term_model",
                 ],
                 outputs="real_data_and_xgboost_predictions_plot",

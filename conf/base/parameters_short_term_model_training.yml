@@ -1,4 +1,10 @@
 short_term_model_training.feature_engineering_short_term_model:
+  basic_features:
+    - dayofweek
+    - quarter
+    - month
+    - year
+    - dayofyear
   column_names:
     - total_consumption
     - Global_intensity

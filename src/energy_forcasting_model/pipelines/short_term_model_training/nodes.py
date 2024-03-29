@@ -5,6 +5,7 @@ import xgboost as xgb
 import seaborn as sns
 
 
+# Node 1
 def create_features(df: pd.DataFrame, feature_params: dict):
     """
     Create time series features based on time series index and add lag and rolling features for specified columns.
@@ -13,12 +14,11 @@ def create_features(df: pd.DataFrame, feature_params: dict):
     column_names = feature_params["column_names"]
     lags = feature_params["lags"]
     window_sizes = feature_params["window_sizes"]
+    basic_features = feature_params["basic_features"]
 
     # List to store created feature names
     created_features = []
 
-    # Basic time series features
-    basic_features = ["dayofweek", "quarter", "month", "year", "dayofyear"]
     for feature in basic_features:
         # Add basic time series features to the DataFrame
         df[feature] = getattr(df.index, feature)
@@ -38,7 +38,7 @@ def create_features(df: pd.DataFrame, feature_params: dict):
             rolling_mean_name = f"{column_name}_rolling_mean_{window}"
             rolling_mean_features.append(
                 df[column_name]
-                .shift(1)
+                .shift(1)  # Shift by one day
                 .rolling(window=window)
                 .mean()
                 .rename(rolling_mean_name)
@@ -51,6 +51,7 @@ def create_features(df: pd.DataFrame, feature_params: dict):
     return df, created_features
 
 
+# Node 2
 def prepare_train_test_sets(featured_data, created_features_list, params):
     """
     Splits the featured data into training and testing datasets based on a specified date threshold.
@@ -64,9 +65,9 @@ def prepare_train_test_sets(featured_data, created_features_list, params):
     # Combine created features and external features for model input
     FEATURES = created_features_list
 
-    # Splitting the data into train and test sets based on the defined Threshold
-    train_df = featured_data.loc[featured_data.index < threshold].copy()
-    test_df = featured_data.loc[featured_data.index >= threshold].copy()
+    # Splitting the data into train and test sets based on the Threshold
+    train_df = featured_data.loc[featured_data.index < threshold]
+    test_df = featured_data.loc[featured_data.index >= threshold]
 
     # Define the X_train / y_train and X_test / y_test
     X_train = train_df[FEATURES]
@@ -77,6 +78,7 @@ def prepare_train_test_sets(featured_data, created_features_list, params):
     return X_train, y_train, X_test, y_test
 
 
+# Node 3
 def train_test_split_plot(y_train, y_test, params):
     """
     Generates a plot visualizing the train/test split of data over time.
@@ -84,7 +86,7 @@ def train_test_split_plot(y_train, y_test, params):
     threshold = pd.to_datetime(params["threshold"])
 
     # Create the figure and axes objects
-    fig, ax = plt.subplots(figsize=(12, 7))
+    fig, ax = plt.subplots(figsize=(20, 10))
 
     # Enhancing the plot aesthetics
     ax.plot(
@@ -122,6 +124,7 @@ def train_test_split_plot(y_train, y_test, params):
     return fig
 
 
+# Node 4
 def train_xgboost_model(X_train, y_train, params):
     """
     Trains an XGBoost regression model using the given training data and parameters.
@@ -156,6 +159,7 @@ def train_xgboost_model(X_train, y_train, params):
     return xgb_model
 
 
+# Node 5
 def plot_feature_importance(trained_model, X_train):
     """
     Generates a plot of the top 10 features based on importance from a trained XGBoost model.
@@ -175,7 +179,7 @@ def plot_feature_importance(trained_model, X_train):
     ).head(10)
 
     # Plotting
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(20, 10))
 
     # XGBoost
     sns.barplot(data=top_features_xgb, x="Importance", y="Feature", ax=ax)
@@ -189,29 +193,45 @@ def plot_feature_importance(trained_model, X_train):
     return fig
 
 
-def plot_real_data_and_predictions(X_test, y_test, trained_model, params):
+# Node 6
+def generate_predictions(X_test, trained_model):
     """
-    Generates a plot comparing the actual consumption data with XGBoost model predictions.
+    Generates predictions for the test data using the trained XGBoost model.
     """
-
-    # Generating predictions
     predictions = trained_model.predict(X_test)
+    return predictions
 
-    # Converting y_test to DataFrame for ease of plotting
-    y_test_df = pd.DataFrame(y_test)
-    y_test_df.columns = ["total_consumption"]  # Naming the actual values column
 
-    # Adding XGBoost predictions
-    y_test_df["XGBoost_Prediction"] = predictions
+# Node 7
+def plot_real_data_and_predictions_with_train(y_train, y_test, predictions, params):
+    """
+    Generates a plot comparing the actual consumption data with model predictions
+    and includes training data.
+    """
+
+    # Converting y_test and y_train to DataFrame for ease of plotting
+    y_test_df = pd.DataFrame(y_test, columns=["total_consumption"])
+    y_train_df = pd.DataFrame(y_train, columns=["total_consumption"])
+
+    # Adding predictions to the test DataFrame
+    y_test_df["Model_Prediction"] = predictions
 
     # Ensure the index is in datetime format for plotting
     y_test_df.index = pd.to_datetime(y_test_df.index)
+    y_train_df.index = pd.to_datetime(y_train_df.index)
 
     # Extracting threshold for plotting
     threshold = pd.to_datetime(params["threshold"])
 
     # Plotting
-    fig, ax = plt.subplots(figsize=(14, 8))
+    fig, ax = plt.subplots(figsize=(20, 10))
+    ax.plot(
+        y_train_df.index,
+        y_train_df["total_consumption"],
+        label="Training Data",
+        color="blue",
+        linewidth=2,
+    )
     ax.plot(
         y_test_df.index,
         y_test_df["total_consumption"],
@@ -221,8 +241,8 @@ def plot_real_data_and_predictions(X_test, y_test, trained_model, params):
     )
     ax.scatter(
         y_test_df.index,
-        y_test_df["XGBoost_Prediction"],
-        label="XGBoost Predictions",
+        y_test_df["Model_Prediction"],
+        label="Model Predictions",
         color="red",
         s=10,
     )
@@ -232,13 +252,13 @@ def plot_real_data_and_predictions(X_test, y_test, trained_model, params):
         x=threshold, color="black", linestyle="--", linewidth=2, label="Threshold"
     )
 
-    # Setting the major locator and formatter for the x-axis to display years
+    # Setting the major locator and formatter for the x-axis
     ax.xaxis.set_major_locator(mdates.YearLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
     plt.xticks(rotation=45)
 
     # Setting titles and labels
-    ax.set_title("Test Data and XGBoost Predictions", fontsize=16)
+    ax.set_title("Training, Test Data and Model Predictions", fontsize=16)
     ax.set_xlabel("Date", fontsize=14)
     ax.set_ylabel("Value", fontsize=14)
     ax.legend()
