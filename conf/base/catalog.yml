@@ -98,3 +98,16 @@ train_test_split_visualization:
   filepath: data/04_reporting/train_test_split_visualization.png
   save_args:
     format: png
+
+# Short term trained xgboost model
+short_term_xgboost_model: # simple example without compression
+  type: pickle.PickleDataset
+  filepath: data/05_model_output/short_term_xgboost_model.pkl
+  backend: pickle
+
+# xgboost feature importance plot
+xgboost_feature_importance_short_term_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/04_reporting/xgboost_feature_importance_short_term_plot.png
+  save_args:
+    format: png

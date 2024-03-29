@@ -5,8 +5,8 @@ from .nodes import (
     prepare_train_test_sets,
     train_test_split_plot,
     train_xgboost_model,
+    plot_feature_importance,
 )
-
 
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline(
@@ -58,20 +58,25 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "y_train_short_term_model",
                     "params:xgboost_model_params",
                 ],
-                outputs="trained_xgboost_model",
+                outputs="short_term_xgboost_model",
                 name="train_xgboost_model_node",
                 tags=["model_training", "xgboost", "short_term_model_training"],
             ),
+            node(
+                func=plot_feature_importance,
+                inputs=[
+                    "short_term_xgboost_model",
+                    "X_train_short_term_model", 
+                ],
+                outputs="xgboost_feature_importance_short_term_plot",
+                name="plot_feature_importance_node",
+                tags=["feature_importance", "visualization", "xgboost", "short_term_model_training"],
+            )
         ],
         tags="short_term_model_training",
         namespace="short_term_model_training",
         inputs="processed_weather_and_consumption_data",
-        outputs=[
-            "X_train_short_term_model",
-            "y_train_short_term_model",
-            "X_test_short_term_model",
-            "y_test_short_term_model",
-            "train_test_split_visualization",
-            "trained_xgboost_model",
-        ],
+        outputs=["train_test_split_visualization",
+                 "short_term_xgboost_model",
+                 "xgboost_feature_importance_short_term_plot"]
     )

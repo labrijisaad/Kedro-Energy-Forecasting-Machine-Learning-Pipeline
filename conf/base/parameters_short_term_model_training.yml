@@ -42,7 +42,7 @@ short_term_model_training.xgboost_model_params:
   booster: 'gbtree'
   n_estimators: 1000
   early_stopping_rounds: 50
-  objective: 'reg:linear'
+  objective: 'reg:squarederror'
   max_depth: 3
   learning_rate: 0.01
   verbose_eval: 100
