@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import xgboost as xgb
 import seaborn as sns
+import logging
 
 from sklearn.ensemble import RandomForestRegressor
 
@@ -12,32 +13,44 @@ def train_xgboost_model(X_train, y_train, params):
     """
     Trains an XGBoost regression model using the given training data and parameters.
     """
-    # Convert specified columns to boolean
-    data_types = params.get("data_types", {})
-    boolean_columns = data_types.get("boolean_columns", [])
+    # Initialize logger
+    logger = logging.getLogger(__name__)
 
-    # Applying conversion for boolean columns
+    # Log the start of the training process
+    logger.info("Starting XGBoost model training...")
+
+    # Log model parameters for reproducibility/debugging
+    logger.info(
+        f"XGBoost parameters: base_score={params['base_score']}, booster={params['booster']}, n_estimators={params['n_estimators']}, early_stopping_rounds={params['early_stopping_rounds']}, objective={params['objective']}, max_depth={params['max_depth']}, learning_rate={params['learning_rate']}, enable_categorical=True, verbose_eval={params['verbose_eval']}"
+    )
+
+    # Convert specified columns to boolean based on provided data types
+    boolean_columns = params["data_types"]["boolean_columns"]
     for col in boolean_columns:
         if col in X_train.columns:
+            logger.debug(f"Converting column {col} to boolean.")
             X_train[col] = X_train[col].astype("bool")
 
-    # Instantiate XGBoost Regressor
+    # Instantiate XGBoost Regressor with the given parameters
     xgb_model = xgb.XGBRegressor(
-        base_score=params.get("base_score", 0.5),
-        booster=params.get("booster", "gbtree"),
-        n_estimators=params.get("n_estimators", 1000),
-        early_stopping_rounds=params.get("early_stopping_rounds", 50),
-        objective=params.get("objective", "reg:linear"),
-        max_depth=params.get("max_depth", 3),
-        learning_rate=params.get("learning_rate", 0.01),
+        base_score=params["base_score"],
+        booster=params["booster"],
+        n_estimators=params["n_estimators"],
+        early_stopping_rounds=params["early_stopping_rounds"],
+        objective=params["objective"],
+        max_depth=params["max_depth"],
+        learning_rate=params["learning_rate"],
         enable_categorical=True,
     )
 
-    # Adjusting verbosity based on YAML configuration
-    verbose_eval = params.get("verbose_eval", 100)
+    # Training the model with verbosity based on the provided configuration
+    logger.info("Training the XGBoost model...")
+    xgb_model.fit(
+        X_train, y_train, verbose=params["verbose_eval"], eval_set=[(X_train, y_train)]
+    )
 
-    # Train the XGBoost Regressor
-    xgb_model.fit(X_train, y_train, verbose=verbose_eval, eval_set=[(X_train, y_train)])
+    # Log the completion of the training process
+    logger.info("XGBoost model training completed successfully.")
 
     return xgb_model
 
@@ -154,28 +167,53 @@ def train_random_forest_model(X_train, y_train, params):
     """
     Trains a Random Forest regression model using the given training data and parameters.
     """
+    # Initialize logger
+    logger = logging.getLogger(__name__)
+
+    # Log the start of the training process
+    logger.info("Starting Random Forest model training...")
+
+    # Log model parameters for reproducibility/debugging
+    logger.info(
+        f"Random Forest parameters: n_estimators={params.get('n_estimators', 600)}, max_depth={params.get('max_depth', 3)}, random_state={params.get('random_state', 42)}"
+    )
+
     rfr_model = RandomForestRegressor(
         n_estimators=params.get("n_estimators", 600),
         max_depth=params.get("max_depth", 3),
-        random_state=params.get("random_state", 42)
+        random_state=params.get("random_state", 42),
     )
-    rfr_model.fit(X_train, y_train)
+
+    # Fit the model
+    rfr_model.fit(X_train, y_train.squeeze())
+
+    # Log the completion of the training process
+    logger.info("Random Forest model training completed successfully.")
+
     return rfr_model
+
 
 def plot_feature_importance_rf(trained_model, X_train):
     """
     Generates a plot of the top 10 features based on importance from a trained Random Forest model.
     """
-    feature_importances = pd.DataFrame(
-        {"Feature": X_train.columns, "Importance": trained_model.feature_importances_}
-    ).sort_values("Importance", ascending=False).head(10)
+    feature_importances = (
+        pd.DataFrame(
+            {
+                "Feature": X_train.columns,
+                "Importance": trained_model.feature_importances_,
+            }
+        )
+        .sort_values("Importance", ascending=False)
+        .head(10)
+    )
 
     fig, ax = plt.subplots(figsize=(20, 10))
     sns.barplot(data=feature_importances, x="Importance", y="Feature", ax=ax)
     ax.set_title("Random Forest: Top 10 Features", fontsize=16)
     ax.set_xlabel("Feature Importance", fontsize=12)
     ax.set_ylabel("Feature", fontsize=12)
-    
+
     plt.tight_layout()
     plt.close(fig)
     return fig
