@@ -12,12 +12,22 @@
 
 In this project, I challenged myself to **transform notebook-based code for model training into a Kedro pipeline**. The idea is to create modular, simple-to-train pipelines following the `best MLOps practices`, to simplify the deployment of ML models. With Kedro, you can execute just one command to train your models and obtain your pickle, performance figures, etc. You can easily adjust parameters in a YAML file, add different steps, and test various models with ease. Additionally, Kedro provides visualization and logging features to keep you informed about everything. 
 
+For an in-depth understanding of **Kedro**, consider exploring the official documentation at [Kedro's Documentation](https://docs.kedro.org/en/stable/introduction/index.html).
+
 ## 🎯 Project Goals
 
 The objectives were:
-- Make the code production-ready and deployable.
+- Make the code **production-ready** and **deployable**.
 - Allow easy addition of models and their performance graphs in the pipeline.
-- Adopt the Kedro framework to produce reproducible, modular, and scalable workflows.
+- Adopt the Kedro framework to produce **reproducible**, **modular**, and **scalable workflows**.
+
+## 🛠️ Preparation & Prototyping in Notebooks
+
+Before I started making Kedro pipelines, I tried out my ideas in Jupyter notebooks. Check the `notebooks` folder to see how I did it:
+
+- **[EDA & Data Preparation - Energy_Forecasting.ipynb](./notebooks/EDA%20&%20Data%20Preparation%20-%20Energy_Forecasting.ipynb)**: Insights into how I Analyzed the data and Prepared it for Modeling.
+  
+- **[Machine Learning - Energy_Forecasting.ipynb](./notebooks/Machine%20Learning%20-%20Energy_Forecasting.ipynb)**: A record of how I evaluated and trained the Machine Learning Models.
 
 ## 🧩 Project Workflow
 
@@ -26,7 +36,7 @@ Within the `src` directory lies the essence, with each component neatly arranged
 - **Data Processing**: Standardizes and cleans data in ZIP and CSV formats, preparing it for analysis. 🔍
 - **Feature Engineering**: Creates new features. 🛠️
 - **Train-Test Split Pipeline**: A dedicated pipeline to split the data into training and test sets. 📊
-- **Model Training + Model Evaluation**: Constructs separate pipelines for XGBoost and Random Forest, modular and independent, capable of training in async mode. 🤖
+- **Model Training + Model Evaluation**: Constructs separate pipelines for **XGBoost** and **Random Forest**, modular and independent, capable of training in async mode. 🤖
 
 ### Kedro Visualization
 
@@ -47,7 +57,7 @@ Notice how the nodes are executed sequentially, and observe the RMSE outputs for
 
 ## 📁 Project Structure
 
-A simplified overview of the Kedro project's structure:
+A _simplified_ overview of the Kedro project's structure:
 
 ```
 Kedro-Energy-Forecasting/
@@ -80,19 +90,20 @@ Kedro-Energy-Forecasting/
 │
 ├── .gitignore                                           # Untracked files to ignore
 ├── Makefile                                             # Set of tasks to be executed
-├── pyproject.toml                                        
 ├── README.md                                            # Project documentation and setup guide
 └── requirements.txt                                     # Project dependencies
 ```
 
 ## 🚀 Getting Started
 
-Transform **raw data** into **Machine Learning Model** with these steps:
+Turn **raw CSV data** into a **trained pickle Machine Learning model** with these steps:
 
-1. **Clone the Repository**: Grab your local copy.
-2. **Environment Setup**: Opt for a virtual environment using Conda or venv.
-3. **Install Dependencies**: Execute `pip install -r requirements.txt` within your chosen environment.
-4. **Run the Kedro Pipeline**: `kedro run` – and witness magic.
+1. **Clone the Repository**: Download a copy of the code to your computer.
+2. **Set Up the Environment**: Create a virtual environment using Conda or venv.
+3. **Install Dependencies**: Run `pip install -r requirements.txt` in your environment to install the required libraries.
+4. **Run the Kedro Pipeline**: `make run` or `kedro run` – and witness magic 🪄
+5. **Review the Results**: After running the pipeline, look in the `04_reporting` and `05_model_output` directories to see your model's performance and results.
+6. **(Optional) Launch Kedro Viz**: To see a visual representation of your pipeline, run `make viz` or `kedro viz`.
 
 _Need guidance on commands? Peek into the **Makefile** or use `kedro --help` for assistance._
 
