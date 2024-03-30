@@ -30,11 +30,20 @@ Within the `src` directory lies the essence, with each component neatly arranged
 
 ### Kedro Visualization
 
-The `Kedro Viz tool` provides an interactive canvas to visualize and **understand the pipeline structure**. It illustrates data flow, dependencies, and the orchestration of nodes and pipelines. Here is the visualization of this project: 🎨
+The `Kedro Viz tool` provides an interactive canvas to visualize and **understand the pipeline structure**. It illustrates data flow, dependencies, and the orchestration of nodes and pipelines. Here is the visualization of this project: 
+![kedro-pipeline](https://github.com/labrijisaad/Kedro-Energy-Forecasting-Machine-Learning-Pipeline/assets/74627083/43354fe6-45eb-4bb0-8f9c-f64f1c6bbeea)
+
+With this tool, the understanding of data progression, outputs, and interactivity is greatly simplified. Kedro Viz allows users to inspect samples of data, view parameters, analyze figures, and much more, enriching the user experience with enhanced transparency and interactivity.
 
 ## 📜 Logging and Monitoring
 
 Logging is integral to understanding and troubleshooting pipelines. This project leverages Kedro's logging capabilities to provide real-time insights into pipeline execution, highlighting progress, warnings, and errors. This GIF demonstrates the use of the `kedro run` or `make run` command, showcasing the logging output in action:
+
+<p align="center">
+  <img src="https://github.com/labrijisaad/Kedro-Energy-Forecasting-Machine-Learning-Pipeline/assets/74627083/beccb89d-82bd-4233-94bf-cab92e36b5eb" width="70%" />
+</p>
+
+Notice how the nodes are executed sequentially, and observe the RMSE outputs for the XGBoost model. Logging in Kedro is highly customizable, allowing for tailored monitoring that meets the user's specific needs.
 
 ## 📁 Project Structure
 
