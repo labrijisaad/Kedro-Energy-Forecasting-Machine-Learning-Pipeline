@@ -111,10 +111,23 @@ random_forest_model:
   filepath: data/05_model_output/random_forest_model.pkl
   backend: pickle
 
+# Trained LightGBM model
+lightgbm_model:
+  type: pickle.PickleDataset
+  filepath: data/05_model_output/lightgbm_model.pkl
+  backend: pickle
+
 # xgboost feature importance plot
 xgboost_feature_importance_plot:
   type: matplotlib.MatplotlibWriter
   filepath: data/04_reporting/xgboost_feature_importance_plot.png
+  save_args:
+    format: png
+
+# lightgbm feature importance plot
+lightgbm_feature_importance_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/04_reporting/lightgbm_feature_importance_plot.png
   save_args:
     format: png
 
@@ -129,6 +142,13 @@ random_forest_feature_importance_plot:
 real_data_and_xgboost_predictions_plot:
   type: matplotlib.MatplotlibWriter
   filepath: data/04_reporting/real_data_and_xgboost_predictions_plot.png
+  save_args:
+    format: png
+
+# real_data_and_lightgbm_predictions_plot 
+real_data_and_lightgbm_predictions_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/04_reporting/real_data_and_lightgbm_predictions_plot.png
   save_args:
     format: png
 
