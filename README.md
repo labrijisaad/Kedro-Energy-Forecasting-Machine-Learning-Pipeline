@@ -42,7 +42,8 @@ Within the `src` directory lies the essence, with each component neatly arranged
 ### Kedro Visualization
 
 The `Kedro Viz tool` provides an interactive canvas to visualize and **understand the pipeline structure**. It illustrates data flow, dependencies, and the orchestration of nodes and pipelines. Here is the visualization of this project: 
-![kedro-pipeline](https://github.com/labrijisaad/Kedro-Energy-Forecasting-Machine-Learning-Pipeline/assets/74627083/43354fe6-45eb-4bb0-8f9c-f64f1c6bbeea)
+
+![kedro-pipeline](https://github.com/labrijisaad/Kedro-Energy-Forecasting-Machine-Learning-Pipeline/assets/74627083/c4b87f0c-d08d-4daf-896a-8e40dcf720a9)
 
 With this tool, the understanding of data progression, outputs, and interactivity is greatly simplified. Kedro Viz allows users to inspect samples of data, view parameters, analyze figures, and much more, enriching the user experience with enhanced transparency and interactivity.
 
