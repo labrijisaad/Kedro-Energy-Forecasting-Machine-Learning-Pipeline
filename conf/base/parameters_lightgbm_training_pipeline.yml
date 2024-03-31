@@ -1,0 +1,16 @@
+# Parameters specific to the LightGBM model
+lightgbm_training_pipeline.lightgbm_model_params:
+  boosting_type: 'gbdt'
+  num_leaves: 31
+  max_depth: -1
+  learning_rate: 0.2
+  n_estimators: 1000
+  force_col_wise: true
+  objective: 'regression'
+  metric: 'l2'
+  data_types:
+    boolean_columns: ['is_holiday','conditions_clear', 'conditions_overcast', 'conditions_partiallycloudy', 
+      'conditions_rain', 'conditions_rainovercast', 'conditions_rainpartiallycloudy', 
+      'conditions_snowovercast', 'conditions_snowpartiallycloudy', 
+      'conditions_snowrain', 'conditions_snowrainovercast', 'conditions_snowrainpartiallycloudy'
+    ]

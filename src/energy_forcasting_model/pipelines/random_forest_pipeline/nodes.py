@@ -40,29 +40,37 @@ def train_random_forest_model(X_train, y_train, params):
     return rfr_model
 
 
-def plot_feature_importance_rf(trained_model, X_train):
+# Node 2
+def plot_feature_importance(trained_model, X_train):
     """
-    Generates a plot of the top 10 features based on importance from a trained Random Forest model.
+    Generates a plot of the top 10 features based on importance from a trained XGBoost model.
     """
-    feature_importances = (
-        pd.DataFrame(
-            {
-                "Feature": X_train.columns,
-                "Importance": trained_model.feature_importances_,
-            }
-        )
-        .sort_values("Importance", ascending=False)
-        .head(10)
+    # Extracting feature importances
+    feature_data_xgb = pd.DataFrame(
+        {
+            "Feature": X_train.columns,
+            "Importance": trained_model.feature_importances_,
+            "Model": "XGBoost",
+        }
     )
 
+    # Sort by importance and select top 10 features
+    top_features_xgb = feature_data_xgb.sort_values(
+        by="Importance", ascending=False
+    ).head(10)
+
+    # Plotting
     fig, ax = plt.subplots(figsize=(20, 10))
-    sns.barplot(data=feature_importances, x="Importance", y="Feature", ax=ax)
-    ax.set_title("Random Forest: Top 10 Features", fontsize=16)
+
+    # XGBoost
+    sns.barplot(data=top_features_xgb, x="Importance", y="Feature", ax=ax)
+    ax.set_title("XGBoost: Top 10 Features", fontsize=16)
     ax.set_xlabel("Feature Importance", fontsize=12)
     ax.set_ylabel("Feature", fontsize=12)
 
     plt.tight_layout()
     plt.close(fig)
+
     return fig
 
 
@@ -75,8 +83,6 @@ def generate_predictions(X_test, trained_model):
     return predictions
 
 
-
-
 def plot_real_data_and_predictions_with_train(y_train, y_test, predictions):
     """
     Generates a plot comparing the actual data with model predictions and includes training data,
@@ -84,7 +90,7 @@ def plot_real_data_and_predictions_with_train(y_train, y_test, predictions):
     """
     # Initialize logger
     logger = logging.getLogger(__name__)
-    
+
     # Calculate RMSE
     rmse = np.sqrt(mean_squared_error(y_test, predictions))
     logger.info(f"RMSE for the test set: {rmse:.2f}")
@@ -103,7 +109,13 @@ def plot_real_data_and_predictions_with_train(y_train, y_test, predictions):
 
     # Find the last date of the training set to add a vertical line for visual separation
     last_train_date = y_train.index[-1]
-    ax.axvline(x=last_train_date, color="black", linestyle="--", linewidth=2, label="Train/Test Split")
+    ax.axvline(
+        x=last_train_date,
+        color="black",
+        linestyle="--",
+        linewidth=2,
+        label="Train/Test Split",
+    )
 
     # Formatting the date axis
     ax.xaxis.set_major_locator(mdates.YearLocator())
@@ -111,7 +123,9 @@ def plot_real_data_and_predictions_with_train(y_train, y_test, predictions):
     plt.xticks(rotation=45)
 
     # Setting titles and labels with RMSE score
-    ax.set_title(f"Training, Test Data and Model Predictions - RMSE: {rmse:.2f}", fontsize=16)
+    ax.set_title(
+        f"Training, Test Data and Model Predictions - RMSE: {rmse:.2f}", fontsize=16
+    )
     ax.set_xlabel("Date", fontsize=14)
     ax.set_ylabel("Value", fontsize=14)
     ax.legend()

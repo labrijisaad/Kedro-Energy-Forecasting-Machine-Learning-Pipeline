@@ -63,11 +63,16 @@ def train_test_split_plot(y_train, y_test):
 
     # Find the last date of the training set and add a vertical line
     last_train_date = y_train.index[-1]
-    ax.axvline(x=last_train_date, color="grey", linestyle="--", linewidth=2, label="Train/Test Split")
+    ax.axvline(
+        x=last_train_date,
+        color="grey",
+        linestyle="--",
+        linewidth=2,
+        label="Train/Test Split",
+    )
 
     # Adjusting the layout
     plt.tight_layout()
 
     plt.close(fig)
     return fig
-
