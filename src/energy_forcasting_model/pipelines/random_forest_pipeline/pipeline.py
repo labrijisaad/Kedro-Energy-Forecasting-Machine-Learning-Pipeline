@@ -5,6 +5,7 @@ from .nodes import (
     plot_real_data_and_predictions_with_train,
     train_random_forest_model,
     plot_feature_importance_rf,
+    plot_feature_importance,
 )
 
 
@@ -19,7 +20,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 tags=["random_forest", "model_training"],
             ),
             node(
-                func=plot_feature_importance_rf,
+                func=plot_feature_importance,
                 inputs=["random_forest_model", "X_train"],
                 outputs="random_forest_feature_importance_plot",
                 name="plot_rf_feature_importance_node",

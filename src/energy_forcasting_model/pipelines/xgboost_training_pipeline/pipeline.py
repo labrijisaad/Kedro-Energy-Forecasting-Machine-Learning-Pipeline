@@ -1,12 +1,13 @@
 from kedro.pipeline import Pipeline, node, pipeline
 
-from .nodes import (
-    train_xgboost_model,
+from .nodes import train_xgboost_model
+
+
+from ..random_forest_pipeline.nodes import (
+    plot_real_data_and_predictions_with_train,
     plot_feature_importance,
     generate_predictions,
 )
-
-from ..random_forest_pipeline.nodes import plot_real_data_and_predictions_with_train
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -21,7 +22,7 @@ def create_pipeline(**kwargs) -> Pipeline:
                 ],
                 outputs="xgboost_model",
                 name="train_xgboost_model_node",
-                tags=["model_training", "xgboost", "model_training"],
+                tags=["model_training", "xgboost"],
             ),
             node(  # Node 2
                 func=plot_feature_importance,
