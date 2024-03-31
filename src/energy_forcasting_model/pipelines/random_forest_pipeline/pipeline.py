@@ -4,7 +4,6 @@ from .nodes import (
     generate_predictions,
     plot_real_data_and_predictions_with_train,
     train_random_forest_model,
-    plot_feature_importance_rf,
     plot_feature_importance,
 )
 
