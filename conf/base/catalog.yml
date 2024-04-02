@@ -11,6 +11,9 @@ household_power_consumption:
       Date: str
       Time: str
       Global_active_power: float64
+  metadata:
+    kedro-viz:
+      layer: raw
 
 # Weather data - part 1
 weather_data_part1:
@@ -20,6 +23,9 @@ weather_data_part1:
     parse_dates: ['datetime', 'sunrise', 'sunset']
     index_col: 'datetime'
     sep: ","
+  metadata:
+    kedro-viz:
+      layer: raw
 
 # Weather data - part 2
 weather_data_part2:
@@ -28,6 +34,9 @@ weather_data_part2:
   load_args:
     parse_dates: ['datetime', 'sunrise', 'sunset']
     index_col: 'datetime'
+  metadata:
+    kedro-viz:
+      layer: raw
 
 # French Holidays data
 french_holidays:
@@ -36,6 +45,9 @@ french_holidays:
   load_args:
     parse_dates: ['date']
     sep: ","
+  metadata:
+    kedro-viz:
+      layer: raw
 
 # Processed Weather and consumption data
 processed_weather_and_consumption_data:
@@ -46,6 +58,9 @@ processed_weather_and_consumption_data:
   load_args:
     index_col: 0  # Load the first column as the index
     parse_dates: [0]  # Interpret the first column (index) as dates
+  metadata:
+    kedro-viz:
+      layer: processed
 
 # X_train 
 X_train:
@@ -56,6 +71,9 @@ X_train:
   load_args:
     index_col: 0
     parse_dates: [0]
+  metadata:
+    kedro-viz:
+      layer: model_input
 
 # y_train
 y_train:
@@ -66,6 +84,9 @@ y_train:
   load_args:
     index_col: 0
     parse_dates: [0]
+  metadata:
+    kedro-viz:
+      layer: model_input
 
 # X_test
 X_test:
@@ -76,6 +97,9 @@ X_test:
   load_args:
     index_col: 0
     parse_dates: [0]
+  metadata:
+    kedro-viz:
+      layer: model_input
 
 # y_test
 y_test:
@@ -86,11 +110,17 @@ y_test:
   load_args:
     index_col: 0
     parse_dates: [0]
+  metadata:
+    kedro-viz:
+      layer: model_input
 
 # Created Features
 created_features:
   type: json.JSONDataset
   filepath: data/04_reporting/created_features.json
+  metadata:
+    kedro-viz:
+      layer: feature_creation
 
 # train / test split visualization 
 train_test_split_visualization:
@@ -104,18 +134,27 @@ xgboost_model:
   type: pickle.PickleDataset
   filepath: data/05_model_output/xgboost_model.pkl
   backend: pickle
+  metadata:
+    kedro-viz:
+      layer: model
 
 # Trained Random Forest model
 random_forest_model:
   type: pickle.PickleDataset
   filepath: data/05_model_output/random_forest_model.pkl
   backend: pickle
+  metadata:
+    kedro-viz:
+      layer: model
 
 # Trained LightGBM model
 lightgbm_model:
   type: pickle.PickleDataset
   filepath: data/05_model_output/lightgbm_model.pkl
   backend: pickle
+  metadata:
+    kedro-viz:
+      layer: model
 
 # xgboost feature importance plot
 xgboost_feature_importance_plot:
@@ -123,6 +162,9 @@ xgboost_feature_importance_plot:
   filepath: data/04_reporting/xgboost_feature_importance_plot.png
   save_args:
     format: png
+  metadata:
+    kedro-viz:
+      layer: reporting
 
 # lightgbm feature importance plot
 lightgbm_feature_importance_plot:
@@ -130,6 +172,9 @@ lightgbm_feature_importance_plot:
   filepath: data/04_reporting/lightgbm_feature_importance_plot.png
   save_args:
     format: png
+  metadata:
+    kedro-viz:
+      layer: reporting
 
 # Random Forest feature importance plot
 random_forest_feature_importance_plot:
@@ -137,6 +182,9 @@ random_forest_feature_importance_plot:
   filepath: data/04_reporting/random_forest_feature_importance_plot.png
   save_args:
     format: png
+  metadata:
+    kedro-viz:
+      layer: reporting
 
 # real_data_and_xgboost_predictions_plot 
 real_data_and_xgboost_predictions_plot:
@@ -144,6 +192,9 @@ real_data_and_xgboost_predictions_plot:
   filepath: data/04_reporting/real_data_and_xgboost_predictions_plot.png
   save_args:
     format: png
+  metadata:
+    kedro-viz:
+      layer: reporting
 
 # real_data_and_lightgbm_predictions_plot 
 real_data_and_lightgbm_predictions_plot:
@@ -151,6 +202,9 @@ real_data_and_lightgbm_predictions_plot:
   filepath: data/04_reporting/real_data_and_lightgbm_predictions_plot.png
   save_args:
     format: png
+  metadata:
+    kedro-viz:
+      layer: reporting
 
 # real_data_and_rf_predictions_plot 
 real_data_and_rf_predictions_plot:
@@ -158,3 +212,6 @@ real_data_and_rf_predictions_plot:
   filepath: data/04_reporting/real_data_and_rf_predictions_plot.png
   save_args:
     format: png
+  metadata:
+    kedro-viz:
+      layer: reporting
