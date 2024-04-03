@@ -3,6 +3,7 @@ kedro~=0.19.3
 kedro[all]
 kedro-datasets>=1.0
 kedro-viz>=6.7.0
+kedro-docker
 
 # Software development 
 python-dotenv
