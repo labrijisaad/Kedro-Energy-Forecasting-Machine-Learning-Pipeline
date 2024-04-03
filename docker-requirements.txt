@@ -1,0 +1,13 @@
+# Kedro dependencies 
+kedro~=0.19.3
+
+# Data science
+scikit-learn 
+lightgbm
+xgboost
+pandas
+numpy
+
+# Ploting
+matplotlib
+seaborn
