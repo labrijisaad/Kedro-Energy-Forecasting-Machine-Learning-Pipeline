@@ -104,9 +104,24 @@ Kedro-Energy-Forecasting/
 
 First, **Clone the Repository** to download a copy of the code onto your local machine, and before diving into transforming **raw data** into a **trained pickle Machine Learning model**, please note:
 
-🔴 **Important Preparation Steps**:
-- If you intend to run the code, it's better to remove the following directories if they exist: `data/02_processed`, `data/03_training_data`, `data/04_reporting`, and `data/05_model_output`. These directories will be regenerated or overwritten after executing the pipeline. They are **included** in the version control to **give you a preview of the expected outcomes**.
+## 🔴 Important Preparation Steps
 
+Before you begin, please follow these preliminary steps to ensure a smooth setup:
+
+- **Clear Existing Data Directories**: If you're planning to run the pipeline, we recommend removing these directories if they currently exist: `data/02_processed`, `data/03_training_data`, `data/04_reporting`, and `data/05_model_output`. They will be recreated or updated once the pipeline runs. These directories are tracked in version control to provide you with a glimpse of the **expected outputs**.
+
+- **Makefile Usage**: To utilize the Makefile for running commands, you must have `make` installed on your system. Follow the instructions in the [installation guide](https://sp21.datastructur.es/materials/guides/make-install.html) to set it up.
+
+Here is an example of the available targets:
+
+<p align="center">
+  <img src="https://github.com/labrijisaad/Kedro-Energy-Forecasting-Machine-Learning-Pipeline/assets/74627083/79e85afb-9966-4404-87d5-2c21b3c2526f" width="70%" />
+</p>
+
+
+- **Running the Kedro Pipeline**:
+  - For **production** environments, initialize your setup by executing `make prep-doc` or using `pip install -r docker-requirements.txt` to install the production dependencies.
+  - For a **development** environment, where you may want to use **Kedro Viz**, work with **Jupyter notebooks**, or test everything thoroughly, run `make prep-dev` or `pip install -r dev-requirements.txt` to install the development dependencies.
 
 
 ### Standard Method (Conda / venv) 🌿
@@ -121,7 +136,7 @@ Adopt this method if you prefer a traditional Python development environment set
    
 4. **Review the Results**: Inspect the `04_reporting` and `05_model_output` directories to assess the performance and outcomes of your models.
    
-5. **(Optional) Explore with Kedro Viz**: To visually explore your pipeline's structure and data flows, initiate Kedro Viz using `make viz` or `kedro run viz`.
+5. **(Optional) Explore with Kedro Viz**: To visually explore your pipeline's structure and data flows, initiate Kedro Viz using `make viz` or `kedro viz run`.
 
 ### Docker Method 🐳
 
