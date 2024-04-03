@@ -1,5 +1,7 @@
 # Kedro dependencies 
 kedro~=0.19.3
+kedro-viz>=6.7.0
+kedro-datasets>=1.0
 
 # Data science
 scikit-learn 
