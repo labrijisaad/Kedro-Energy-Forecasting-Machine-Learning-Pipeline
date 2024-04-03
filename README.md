@@ -94,22 +94,46 @@ Kedro-Energy-Forecasting/
 │
 ├── .gitignore                                           # Untracked files to ignore
 ├── Makefile                                             # Set of tasks to be executed
+├── Dockerfile                                           # Instructions for building a Docker image
+├── .dockerignore                                        # Files and directories to ignore in Docker builds   
 ├── README.md                                            # Project documentation and setup guide
 └── requirements.txt                                     # Project dependencies
 ```
 
 ## 🚀 Getting Started
 
-Turn **raw CSV data** into a **trained pickle Machine Learning model** with these steps:
+First, **Clone the Repository** to download a copy of the code onto your local machine, and before diving into transforming **raw data** into a **trained pickle Machine Learning model**, please note:
 
-1. **Clone the Repository**: Download a copy of the code to your computer.
-2. **Set Up the Environment**: Create a virtual environment using Conda or venv.
-3. **Install Dependencies**: Run `pip install -r requirements.txt` in your environment to install the required libraries.
-4. **Run the Kedro Pipeline**: `make run` or `kedro run` – and witness magic 🪄
-5. **Review the Results**: After running the pipeline, look in the `04_reporting` and `05_model_output` directories to see your model's performance and results.
-6. **(Optional) Launch Kedro Viz**: To see a visual representation of your pipeline, run `make viz` or `kedro run viz`.
+🔴 **Important Preparation Steps**:
+- If you intend to run the code, it's better to remove the following directories if they exist: `data/02_processed`, `data/03_training_data`, `data/04_reporting`, and `data/05_model_output`. These directories will be regenerated or overwritten after executing the pipeline. They are **included** in the version control to **give you a preview of the expected outcomes**.
 
-_Need guidance on commands? Peek into the **Makefile** or use `kedro --help` for assistance._
+
+
+### Standard Method (Conda / venv) 🌿
+
+Adopt this method if you prefer a traditional Python development environment setup using Conda or venv.
+
+1. **Set Up the Environment**: Initialize a virtual environment with Conda or venv to isolate and manage your project's dependencies.
+   
+2. **Install Dependencies**: Inside your virtual environment, execute `pip install -r dev-requirements.txt` to install the necessary Python libraries.
+   
+3. **Run the Kedro Pipeline**: Trigger the pipeline processing by running `make run` or directly with `kedro run`. This step orchestrates your data transformation and modeling.
+   
+4. **Review the Results**: Inspect the `04_reporting` and `05_model_output` directories to assess the performance and outcomes of your models.
+   
+5. **(Optional) Explore with Kedro Viz**: To visually explore your pipeline's structure and data flows, initiate Kedro Viz using `make viz` or `kedro run viz`.
+
+### Docker Method 🐳
+
+Prefer this method for a containerized approach, ensuring a consistent development environment across different machines. Ensure Docker is operational on your system before you begin.
+
+1. **Build the Docker Image**: Construct your Docker image with `make build` or `kedro docker build`. This command leverages `dev-requirements.txt` for environment setup. For advanced configurations, see the [Kedro Docker Plugin Documentation](https://github.com/kedro-org/kedro-plugins/tree/main/kedro-docker).
+   
+2. **Run the Pipeline Inside a Container**: Execute the pipeline within Docker using `make dockerun` or `kedro docker run`. Kedro-Docker meticulously handles volume mappings to ensure seamless data integration between your local setup and the Docker environment.
+   
+3. **Access the Results**: Upon completion, the `04_reporting` and `05_model_output` directories will contain your model's reports and trained files, ready for review.
+
+For additional assistance or to explore more command options, refer to the **Makefile** or consult `kedro --help`.
 
 ## 🌐 Let's Connect!
 
