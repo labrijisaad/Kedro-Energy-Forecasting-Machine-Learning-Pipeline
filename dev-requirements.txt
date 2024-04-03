@@ -1,28 +1,23 @@
+# Prduction requirements
+-r docker-requirements.txt
+
 # Kedro dependencies 
-kedro~=0.19.3
 kedro[all]
-kedro-datasets>=1.0
-kedro-viz>=6.7.0
 kedro-docker
 
 # Software development 
 python-dotenv
 tqdm
 black
+ruff
 
 # Data science
-scikit-learn
 jupyterlab
 statsmodels 
 missingno 
-lightgbm
 ipython
-xgboost
-pandas
-numpy
+
 
 # Ploting
-matplotlib
 colorama  
 plotly
-seaborn
