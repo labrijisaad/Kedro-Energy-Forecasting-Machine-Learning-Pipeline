@@ -4,6 +4,14 @@ AUTHOR := Labriji Saad
 # Default target when no arguments are provided to make
 .DEFAULT_GOAL := help
 
+prep-dev:
+	@echo "Installing development dependencies..."
+	@pip install -r dev-requirements.txt
+
+prep-doc:
+	@echo "Installing production (Docker) dependencies..."
+	@pip install -r docker-requirements.txt
+
 # Run Jupyter Lab - starts Jupyter Lab to allow for interactive development
 jupy:
 	@echo "Starting Jupyter Lab..."
@@ -37,6 +45,8 @@ dockerun:
 # Display help with available make targets
 help:
 	@echo Available targets:
+	@echo   make prep-dev  - Install development dependencies
+	@echo   make prep-doc  - Install production (Docker) dependencies
 	@echo   make jupy      - Activate the virtual environment and run Jupyter Lab
 	@echo   make run       - Run Kedro pipelines
 	@echo   make viz       - Run Kedro Viz
