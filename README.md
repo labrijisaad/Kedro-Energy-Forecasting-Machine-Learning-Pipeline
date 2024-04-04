@@ -17,7 +17,7 @@ For an in-depth understanding of **Kedro**, consider exploring the official docu
 ## 🎯 Project Goals
 
 The objectives were:
-- Make the code in a Notebook **production-ready** and **easily deployable**.
+- Transition code from Jupyter Notebooks to a **production-ready**, **easily deployable** format.
 - Allow **easy** addition of models and their performance graphs in the pipeline.
 - Adopt the Kedro framework to produce **reproducible**, **modular**, and **scalable workflows**.
 
@@ -104,15 +104,15 @@ Kedro-Energy-Forecasting/
 
 First, **Clone the Repository** to download a copy of the code onto your local machine, and before diving into transforming **raw data** into a **trained pickle Machine Learning model**, please note:
 
-## 🔴 Important Preparation Steps
+#### 🔴 Important Preparation Steps
 
 Before you begin, please follow these preliminary steps to ensure a smooth setup:
 
-- **Clear Existing Data Directories**: If you're planning to run the pipeline, we recommend removing these directories if they currently exist: `data/02_processed`, `data/03_training_data`, `data/04_reporting`, and `data/05_model_output`. They will be recreated or updated once the pipeline runs. These directories are tracked in version control to provide you with a glimpse of the **expected outputs**.
+- **Clear Existing Data Directories**: If you're planning to run the pipeline, i recommend removing these directories if they exist: `data/02_processed`, `data/03_training_data`, `data/04_reporting`, and `data/05_model_output` (leave only `data/01_raw` in the `data` folder). They will be recreated or updated once the pipeline runs. These directories are tracked in version control to provide you with a glimpse of the **expected outputs**.
 
 - **Makefile Usage**: To utilize the Makefile for running commands, you must have `make` installed on your system. Follow the instructions in the [installation guide](https://sp21.datastructur.es/materials/guides/make-install.html) to set it up.
 
-Here is an example of the available targets:
+Here is an example of the available targets: (you type `make` in the command line)
 
 <p align="center">
   <img src="https://github.com/labrijisaad/Kedro-Energy-Forecasting-Machine-Learning-Pipeline/assets/74627083/79e85afb-9966-4404-87d5-2c21b3c2526f" width="70%" />
@@ -121,10 +121,10 @@ Here is an example of the available targets:
 
 - **Running the Kedro Pipeline**:
   - For **production** environments, initialize your setup by executing `make prep-doc` or using `pip install -r docker-requirements.txt` to install the production dependencies.
-  - For a **development** environment, where you may want to use **Kedro Viz**, work with **Jupyter notebooks**, or test everything thoroughly, run `make prep-dev` or `pip install -r dev-requirements.txt` to install the development dependencies.
+  - For a **development** environment, where you may want to use **Kedro Viz**, work with **Jupyter notebooks**, or test everything thoroughly, run `make prep-dev` or `pip install -r dev-requirements.txt` to install all the development dependencies.
 
 
-### Standard Method (Conda / venv) 🌿
+### 🌿 Standard Method (Conda / venv) 
 
 Adopt this method if you prefer a traditional Python development environment setup using Conda or venv.
 
@@ -138,7 +138,7 @@ Adopt this method if you prefer a traditional Python development environment set
    
 5. **(Optional) Explore with Kedro Viz**: To visually explore your pipeline's structure and data flows, initiate Kedro Viz using `make viz` or `kedro viz run`.
 
-### Docker Method 🐳
+### 🐳 Docker Method 
 
 Prefer this method for a containerized approach, ensuring a consistent development environment across different machines. Ensure Docker is operational on your system before you begin.
 
@@ -149,6 +149,11 @@ Prefer this method for a containerized approach, ensuring a consistent developme
 3. **Access the Results**: Upon completion, the `04_reporting` and `05_model_output` directories will contain your model's reports and trained files, ready for review.
 
 For additional assistance or to explore more command options, refer to the **Makefile** or consult `kedro --help`.
+
+## 🌌 Next Steps?
+With our **Kedro Pipeline** 🏗 now capable of efficiently **transforming raw** data 🔄 into **trained models** 🤖, and the introduction of a Dockerized environment 🐳 for our code, the next phase involves _advancing beyond the current repository scope_ 🚀 to `orchestrate data updates automatically` using tools like **Databricks**, **Airflow**, **Azure Data Factory**... This progression allows for the seamless integration of fresh data into our models.
+
+Moreover, implementing `experiment tracking and versioning` with **MLflow** 📊 or leveraging **Kedro Viz**'s versioning capabilities 📈 will significantly enhance our project's management and reproducibility. These steps are pivotal for maintaining a clean machine learning workflow that not only achieves our goal of simplifying model training processes 🛠 but also ensures our system remains dynamic and scalable with **minimal effort**.
 
 ## 🌐 Let's Connect!
 
