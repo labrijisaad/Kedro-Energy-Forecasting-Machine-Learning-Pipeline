@@ -27,6 +27,6 @@ jobs:
       run: bandit -r .
     # Commit and push changes made by Black and Ruff
     - name: Commit & Push changes
-      uses: actions-js/push@master
+      uses: actions-js/push@main
       with:
         github_token: ${{ secrets.MY_GITHUB_TOKEN }}
