@@ -1,4 +1,4 @@
-name: Code Quality and Kedro Run Check
+name: Code Quality Checks
 
 on:
   push:
@@ -13,26 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.8'
-        
     - name: Install Python tools (Black with Jupyter, Bandit, Ruff)
       run: pip install "black[jupyter]" bandit ruff
-
     - name: Auto-fix Formatting Issues with Black
       run: black .
-      
     - name: Auto-fix Linting Errors with Ruff
       run: ruff --fix .
-      
     - name: Security Check with Bandit
       run: bandit -r .
-    
-    - name: Install Kedro project dependencies
-      run: pip install -r docker-requirements.txt
-
-    - name: Run Kedro Pipeline
-      run: kedro run
+    # Commit and push changes made by Black and Ruff
+    - name: Commit and push if changed
+      run: |
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add -A
+        git commit -m "Automated code quality fixes" -a || echo "No changes to commit"
+        git push

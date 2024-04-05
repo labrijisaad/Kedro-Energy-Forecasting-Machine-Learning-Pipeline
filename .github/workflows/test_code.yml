@@ -1,0 +1,31 @@
+name: Test Code with Docker
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-code:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:19.03.12
+        options: --privileged
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+    - name: Install Kedro and Docker plugin
+      run: pip install -r dev-requirements.txt
+    - name: Configure Docker
+      run: sudo service docker start
+    - name: Build docker image (using Kedro-Docker)
+      run: kedro docker build
+    - name: Run the docker container (using Kedro-Docker)
+      run: kedro docker run
