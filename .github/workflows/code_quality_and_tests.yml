@@ -1,0 +1,38 @@
+name: Code Quality and Kedro Run Check
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  code-quality-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+        
+    - name: Install Python tools (Black, Flake8, Bandit)
+      run: pip install black flake8 bandit
+
+    - name: Check Code Formatting with Black
+      run: black --check .
+      
+    - name: Lint with Flake8
+      run: flake8 .
+      
+    - name: Security Check with Bandit
+      run: bandit -r .
+    
+    - name: Install Kedro project dependencies
+      run: pip install -r docker-requirements.txt
+
+    - name: Run Kedro Pipeline
+      run: kedro run
