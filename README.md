@@ -14,6 +14,8 @@ In this project, I challenged myself to **transform notebook-based code for mode
 
 For an in-depth understanding of **Kedro**, consider exploring the official documentation at [Kedro's Documentation](https://docs.kedro.org/en/stable/introduction/index.html).
 
+Additionally, I integrated a **CI pipeline** on `Github Actions` for **code quality checks** and **code functionality assurance**, enhancing reliability and maintainability ✅
+
 ## 🎯 Project Goals
 
 The objectives were:
