@@ -5,7 +5,6 @@ import lightgbm as lgb
 import logging
 
 
-# Node 1
 def train_lightgbm_model(X_train, y_train, params):
     """
     Trains a LightGBM regression model using the given training data and parameters.
@@ -28,15 +27,23 @@ def train_lightgbm_model(X_train, y_train, params):
     logger.info("Starting LightGBM model training...")
     logger.info(f"LightGBM parameters: {model_params}")
 
+    # Drop rows with null values from X_train and align y_train
+    X_train_clean = X_train.dropna()
+    y_train_clean = y_train.loc[X_train_clean.index]
+
+    # Log how many rows were dropped
+    dropped_rows = X_train.shape[0] - X_train_clean.shape[0]
+    logger.info(f"Dropped {dropped_rows} rows with null values from training data.")
+
     # Create an instance of LGBMRegressor with parameters unpacked
     lgbm_model = lgb.LGBMRegressor(**model_params)
 
     # Training the model
     logger.info("Training the LightGBM model...")
     lgbm_model.fit(
-        X_train,
-        y_train,
-        eval_set=[(X_train, y_train)],
+        X_train_clean,
+        y_train_clean,
+        eval_set=[(X_train_clean, y_train_clean)],
         eval_metric=model_params.get("metric", "l2"),
     )
 

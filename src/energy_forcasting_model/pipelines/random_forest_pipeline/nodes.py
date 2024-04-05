@@ -20,6 +20,15 @@ def train_random_forest_model(X_train, y_train, params):
     # Log the start of the training process
     logger.info("Starting Random Forest model training...")
 
+    # Drop rows with null values from X_train
+    X_train_clean = X_train.dropna()
+    # Get the indices of the remaining rows after dropping nulls to align y_train
+    y_train_clean = y_train.loc[X_train_clean.index]
+
+    # Log how many rows were dropped
+    dropped_rows = X_train.shape[0] - X_train_clean.shape[0]
+    logger.info(f"Dropped {dropped_rows} rows with null values.")
+
     # Log model parameters for reproducibility/debugging
     logger.info(
         f"Random Forest parameters: n_estimators={params.get('n_estimators', 600)}, max_depth={params.get('max_depth', 3)}, random_state={params.get('random_state', 42)}"
@@ -32,7 +41,7 @@ def train_random_forest_model(X_train, y_train, params):
     )
 
     # Fit the model
-    rfr_model.fit(X_train, y_train.squeeze())
+    rfr_model.fit(X_train_clean, y_train_clean.squeeze())
 
     # Log the completion of the training process
     logger.info("Random Forest model training completed successfully.")
