@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        persist-credentials: false  # Important: This must be set for actions-js/push
+        fetch-depth: 0               # Important: Fetch all history for all tags and branches
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -25,8 +28,8 @@ jobs:
       run: ruff --fix .
     - name: Security Check with Bandit
       run: bandit -r .
-    # Commit and push changes made by Black and Ruff
     - name: Commit & Push changes
-      uses: actions-js/push@main
+      uses: actions-js/push@v1.4
       with:
         github_token: ${{ secrets.MY_GITHUB_TOKEN }}
+        branch: ${{ github.ref }}

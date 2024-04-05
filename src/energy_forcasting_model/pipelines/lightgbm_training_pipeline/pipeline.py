@@ -51,10 +51,10 @@ def create_pipeline(**kwargs) -> Pipeline:
         tags="model_training",
         namespace="lightgbm_training_pipeline",
         inputs=[
-            "X_train",
-            "y_train",
-            "X_test",
-            "y_test",
+                        "X_train",
+                        "y_train",
+                        "X_test",
+                        "y_test",
         ],
         outputs=[
 "lightgbm_model",
