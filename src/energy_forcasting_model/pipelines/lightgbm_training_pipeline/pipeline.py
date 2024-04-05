@@ -57,8 +57,8 @@ def create_pipeline(**kwargs) -> Pipeline:
             "y_test",
         ],
         outputs=[
-            "lightgbm_model",
-            "lightgbm_feature_importance_plot",
-            "real_data_and_lightgbm_predictions_plot",
+"lightgbm_model",
+"lightgbm_feature_importance_plot",
+"real_data_and_lightgbm_predictions_plot",
         ],
     )
