@@ -1,6 +1,5 @@
 from kedro.pipeline import Pipeline, node, pipeline
 
-from kedro.pipeline import Pipeline, pipeline
 
 from .nodes import train_lightgbm_model
 
@@ -51,14 +50,14 @@ def create_pipeline(**kwargs) -> Pipeline:
         tags="model_training",
         namespace="lightgbm_training_pipeline",
         inputs=[
-                        "X_train",
-                        "y_train",
-                        "X_test",
-                        "y_test",
+            "X_train",
+            "y_train",
+            "X_test",
+            "y_test",
         ],
         outputs=[
-"lightgbm_model",
-"lightgbm_feature_importance_plot",
-"real_data_and_lightgbm_predictions_plot",
+            "lightgbm_model",
+            "lightgbm_feature_importance_plot",
+            "real_data_and_lightgbm_predictions_plot",
         ],
     )

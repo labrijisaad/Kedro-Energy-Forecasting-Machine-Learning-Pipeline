@@ -1,7 +1,4 @@
-import pandas as pd
-import matplotlib.pyplot as plt
 import xgboost as xgb
-import seaborn as sns
 import logging
 
 
@@ -49,10 +46,10 @@ def train_xgboost_model(X_train, y_train, params):
     # Training the model with verbosity based on the provided configuration
     logger.info("Training the XGBoost model...")
     xgb_model.fit(
-        X_train_clean, 
-        y_train_clean, 
+        X_train_clean,
+        y_train_clean,
         eval_set=[(X_train_clean, y_train_clean)],
-        verbose=params["verbose_eval"]
+        verbose=params["verbose_eval"],
     )
 
     # Log the completion of the training process
