@@ -27,9 +27,11 @@ jobs:
       run: bandit -r .
     # Commit and push changes made by Black and Ruff
     - name: Commit and push if changed
+      env:
+        MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
         git add -A
         git commit -m "Automated code quality fixes" -a || echo "No changes to commit"
-        git push
+        git push https://${MY_GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git HEAD:${GITHUB_REF_NAME}
