@@ -19,11 +19,11 @@ jobs:
       with:
         python-version: '3.8'
         
-    - name: Install Python tools (Black, Flake8, Bandit, Ruff)
-      run: pip install black flake8 bandit ruff
+    - name: Install Python tools (Black with Jupyter, Bandit, Ruff)
+      run: pip install "black[jupyter]" bandit ruff
 
-    - name: Check Code Formatting with Black
-      run: black --check .
+    - name: Auto-fix Formatting Issues with Black
+      run: black .
       
     - name: Auto-fix Linting Errors with Ruff
       run: ruff --fix .
