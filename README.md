@@ -19,13 +19,15 @@ Additionally, I integrated a **CI pipeline** on `Github Actions` for **code qual
 ## 🎯 Project Goals
 
 The objectives were:
-- Transition code from Jupyter Notebooks to a **production-ready**, **easily deployable** format.
-- Allow **easy** addition of models and their performance graphs in the pipeline.
-- Adopt the Kedro framework to produce **reproducible**, **modular**, and **scalable workflows**.
+- **Transition to Production**: Convert code from `Jupyter Notebooks` to a `production-ready` and easily deployable format.
+- **Model Integration**: Facilitate the straightforward addition of models, along with their performance metrics, into the pipeline.
+- **Workflow Optimization**: Utilize the `Kedro framework` to establish reproducible, modular, and scalable data workflows.
+- **CI/CD Automation**: Implement an **automated CI/CD pipeline** using `GitHub Actions` to ensure continuous testing and code quality management.
+- **Dockerization**: Develop a **Dockerized pipeline** for ease of use, incorporating `Docker volumes` for persistent data management.
 
 ## 🛠️ Preparation & Prototyping in Notebooks
 
-Before I started making Kedro pipelines, I tried out my ideas in Jupyter notebooks. Check the `notebooks` folder to see how I did it:
+Before I started making `Kedro pipelines`, I tried out my ideas in Jupyter notebooks. Check the `notebooks` folder to see how I did it:
 
 - **[EDA & Data Preparation - Energy_Forecasting.ipynb](./notebooks/EDA%20&%20Data%20Preparation%20-%20Energy_Forecasting.ipynb)**: Offers insights into how I analyzed the data and prepared it for modeling, including data preparation and cleaning processes.
   
