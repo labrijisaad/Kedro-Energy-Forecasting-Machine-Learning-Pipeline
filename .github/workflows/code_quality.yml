@@ -25,7 +25,7 @@ jobs:
     - name: Auto-fix Formatting Issues with Black
       run: black .
     - name: Auto-fix Linting Errors with Ruff
-      run: ruff --fix .
+      run: ruff check --fix
     - name: Security Check with Bandit
       run: bandit -r .
     - name: Commit & Push changes
