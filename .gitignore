@@ -146,3 +146,6 @@ stats.json
 
 # session store
 session_store.db
+
+# Vscode
+.vscode/
