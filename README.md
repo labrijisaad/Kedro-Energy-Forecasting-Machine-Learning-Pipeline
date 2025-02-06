@@ -25,6 +25,8 @@ The objectives were:
 - **CI/CD Automation**: Implement an **automated CI/CD pipeline** using `GitHub Actions` to ensure continuous testing and code quality management.
 - **Dockerization**: Develop a **Dockerized pipeline** for ease of use, incorporating `Docker volumes` for persistent data management.
 
+<div id="top"></div> </div><p align="right">(<a href="#top">back to top</a>)</p>
+
 ## 🛠️ Preparation & Prototyping in Notebooks
 
 Before I started making `Kedro pipelines`, I tried out my ideas in Jupyter notebooks. Check the `notebooks` folder to see how I did it:
@@ -51,6 +53,8 @@ The `Kedro Viz tool` provides an interactive canvas to visualize and **understan
 
 With this tool, the understanding of data progression, outputs, and interactivity is greatly simplified. Kedro Viz allows users to inspect samples of data, view parameters, analyze figures, and much more, enriching the user experience with enhanced transparency and interactivity.
 
+<div id="top"></div> </div><p align="right">(<a href="#top">back to top</a>)</p>
+
 ## 📜 Logging and Monitoring
 
 Logging is integral to understanding and troubleshooting pipelines. This project leverages Kedro's logging capabilities to provide real-time insights into pipeline execution, highlighting progress, warnings, and errors. This GIF demonstrates the use of the `kedro run` or `make run` command, showcasing the logging output in action:
@@ -60,6 +64,8 @@ Logging is integral to understanding and troubleshooting pipelines. This project
 </p>
 
 Notice how the nodes are executed sequentially, and observe the **RMSE outputs during validation** for the **XGBoost model**. Logging in Kedro is highly customizable, allowing for tailored monitoring that meets the user's specific needs.
+
+<div id="top"></div> </div><p align="right">(<a href="#top">back to top</a>)</p>
 
 ## 📁 Project Structure
 
@@ -104,6 +110,8 @@ Kedro-Energy-Forecasting/
 └── requirements.txt                                     # Project dependencies
 ```
 
+<div id="top"></div> </div><p align="right">(<a href="#top">back to top</a>)</p>
+
 ## 🚀 Getting Started
 
 First, **Clone the Repository** to download a copy of the code onto your local machine, and before diving into transforming **raw data** into a **trained pickle Machine Learning model**, please note:
@@ -127,6 +135,7 @@ Here is an example of the available targets: (you type `make` in the command lin
   - For **production** environments, initialize your setup by executing `make prep-doc` or using `pip install -r docker-requirements.txt` to install the production dependencies.
   - For a **development** environment, where you may want to use **Kedro Viz**, work with **Jupyter notebooks**, or test everything thoroughly, run `make prep-dev` or `pip install -r dev-requirements.txt` to install all the development dependencies.
 
+<div id="top"></div> </div><p align="right">(<a href="#top">back to top</a>)</p>
 
 ### 🌿 Standard Method (Conda / venv) 
 
@@ -154,10 +163,14 @@ Prefer this method for a containerized approach, ensuring a consistent developme
 
 For additional assistance or to explore more command options, refer to the **Makefile** or consult `kedro --help`.
 
+<div id="top"></div> </div><p align="right">(<a href="#top">back to top</a>)</p>
+
 ## 🌌 Next Steps?
 With our **Kedro Pipeline** 🏗 now capable of efficiently **transforming raw** data 🔄 into **trained models** 🤖, and the introduction of a Dockerized environment 🐳 for our code, the next phase involves _advancing beyond the current repository scope_ 🚀 to `orchestrate data updates automatically` using tools like **Databricks**, **Airflow**, **Azure Data Factory**... This progression allows for the seamless integration of fresh data into our models.
 
 Moreover, implementing `experiment tracking and versioning` with **MLflow** 📊 or leveraging **Kedro Viz**'s versioning capabilities 📈 will significantly enhance our project's management and reproducibility. These steps are pivotal for maintaining a clean machine learning workflow that not only achieves our goal of simplifying model training processes 🛠 but also ensures our system remains dynamic and scalable with **minimal effort**.
+
+<div id="top"></div> </div><p align="right">(<a href="#top">back to top</a>)</p>
 
 ## 🌐 Let's Connect!
 
