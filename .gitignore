@@ -144,8 +144,8 @@ venv.bak/
 # stats
 stats.json
 
-# session store
-session_store.db
-
 # Vscode
 .vscode/
+
+# session store
+session_store.db
