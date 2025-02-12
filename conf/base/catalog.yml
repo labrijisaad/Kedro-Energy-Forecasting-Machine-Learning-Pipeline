@@ -132,7 +132,7 @@ train_test_split_visualization:
 # Trained xgboost model
 xgboost_model:
   type: pickle.PickleDataset
-  filepath: data/05_model_output/xgboost_model.pkl
+  filepath: data/05_model_output/xgboost/xgboost_model.pkl
   backend: pickle
   metadata:
     kedro-viz:
@@ -141,7 +141,7 @@ xgboost_model:
 # Trained Random Forest model
 random_forest_model:
   type: pickle.PickleDataset
-  filepath: data/05_model_output/random_forest_model.pkl
+  filepath: data/05_model_output/random_forest/random_forest_model.pkl
   backend: pickle
   metadata:
     kedro-viz:
@@ -150,7 +150,7 @@ random_forest_model:
 # Trained LightGBM model
 lightgbm_model:
   type: pickle.PickleDataset
-  filepath: data/05_model_output/lightgbm_model.pkl
+  filepath: data/05_model_output/lightgbm/lightgbm_model.pkl
   backend: pickle
   metadata:
     kedro-viz:
@@ -159,7 +159,7 @@ lightgbm_model:
 # xgboost feature importance plot
 xgboost_feature_importance_plot:
   type: matplotlib.MatplotlibWriter
-  filepath: data/04_reporting/xgboost_feature_importance_plot.png
+  filepath: data/04_reporting/xgboost/xgboost_feature_importance_plot.png
   save_args:
     format: png
   metadata:
@@ -169,7 +169,7 @@ xgboost_feature_importance_plot:
 # lightgbm feature importance plot
 lightgbm_feature_importance_plot:
   type: matplotlib.MatplotlibWriter
-  filepath: data/04_reporting/lightgbm_feature_importance_plot.png
+  filepath: data/04_reporting/lightgbm/lightgbm_feature_importance_plot.png
   save_args:
     format: png
   metadata:
@@ -179,7 +179,7 @@ lightgbm_feature_importance_plot:
 # Random Forest feature importance plot
 random_forest_feature_importance_plot:
   type: matplotlib.MatplotlibWriter
-  filepath: data/04_reporting/random_forest_feature_importance_plot.png
+  filepath: data/04_reporting/random_forest/random_forest_feature_importance_plot.png
   save_args:
     format: png
   metadata:
@@ -189,7 +189,7 @@ random_forest_feature_importance_plot:
 # real_data_and_xgboost_predictions_plot 
 real_data_and_xgboost_predictions_plot:
   type: matplotlib.MatplotlibWriter
-  filepath: data/04_reporting/real_data_and_xgboost_predictions_plot.png
+  filepath: data/04_reporting/xgboost/real_data_and_xgboost_predictions_plot.png
   save_args:
     format: png
   metadata:
@@ -199,7 +199,7 @@ real_data_and_xgboost_predictions_plot:
 # real_data_and_lightgbm_predictions_plot 
 real_data_and_lightgbm_predictions_plot:
   type: matplotlib.MatplotlibWriter
-  filepath: data/04_reporting/real_data_and_lightgbm_predictions_plot.png
+  filepath: data/04_reporting/lightgbm/real_data_and_lightgbm_predictions_plot.png
   save_args:
     format: png
   metadata:
@@ -209,7 +209,56 @@ real_data_and_lightgbm_predictions_plot:
 # real_data_and_rf_predictions_plot 
 real_data_and_rf_predictions_plot:
   type: matplotlib.MatplotlibWriter
-  filepath: data/04_reporting/real_data_and_rf_predictions_plot.png
+  filepath: data/04_reporting/random_forest/real_data_and_rf_predictions_plot.png
+  save_args:
+    format: png
+  metadata:
+    kedro-viz:
+      layer: reporting
+
+# Trained CatBoost model
+catboost_model:
+  type: pickle.PickleDataset
+  filepath: data/05_model_output/catboost/catboost_model.pkl
+  backend: pickle
+  metadata:
+    kedro-viz:
+      layer: model
+
+# CatBoost feature importance plot
+catboost_feature_importance_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/04_reporting/catboost/catboost_feature_importance_plot.png
+  save_args:
+    format: png
+  metadata:
+    kedro-viz:
+      layer: reporting
+
+# Real data and CatBoost predictions plot
+real_data_and_catboost_predictions_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/04_reporting/catboost/real_data_and_catboost_predictions_plot.png
+  save_args:
+    format: png
+  metadata:
+    kedro-viz:
+      layer: reporting
+
+# CatBoost SHAP summary plot for model explainability
+catboost_shap_summary_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/04_reporting/catboost/catboost_shap_summary_plot.png
+  save_args:
+    format: png
+  metadata:
+    kedro-viz:
+      layer: reporting
+
+# CatBoost Partial Dependence Plot
+catboost_partial_dependence_plot:
+  type: matplotlib.MatplotlibWriter
+  filepath: data/04_reporting/catboost/catboost_partial_dependence_plot.png
   save_args:
     format: png
   metadata:

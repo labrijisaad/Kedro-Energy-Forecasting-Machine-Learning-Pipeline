@@ -1,0 +1,35 @@
+# Parameters specific to the CatBoost model
+catboost_training_pipeline.catboost_model_params:
+  target: total_consumption
+  threshold: 2010-05-17
+  iterations: 1000
+  depth: 3
+  learning_rate: 0.01
+  loss_function: 'RMSE'
+  eval_metric: 'RMSE'
+  verbose_eval: 100
+  random_state: 42
+  data_types:
+    boolean_columns: 
+      - 'is_holiday'
+      - 'conditions_clear'
+      - 'conditions_overcast'
+      - 'conditions_partiallycloudy'
+      - 'conditions_rain'
+      - 'conditions_rainovercast'
+      - 'conditions_rainpartiallycloudy'
+      - 'conditions_snowovercast'
+      - 'conditions_snowpartiallycloudy'
+      - 'conditions_snowrain'
+      - 'conditions_snowrainovercast'
+      - 'conditions_snowrainpartiallycloudy'
+
+# Features for Partial Dependence Plot (PDP)
+catboost_training_pipeline.catboost_pdp_features:
+  - 'temp_lag_1'
+  - 'dayofweek'
+  - 'total_consumption_lag_1'
+  - 'tempmax_lag_1'
+  - 'feelslike_lag_1'
+  - 'tempmin_lag_1'
+  - 'tempmin_rolling_mean_3'

@@ -2,7 +2,6 @@ from kedro.pipeline import Pipeline, node, pipeline
 
 from .nodes import train_xgboost_model
 
-
 from ..random_forest_pipeline.nodes import (
     plot_real_data_and_predictions_with_train,
     plot_feature_importance,
