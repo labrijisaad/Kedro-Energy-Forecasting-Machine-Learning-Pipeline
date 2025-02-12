@@ -3,7 +3,7 @@ from kedro.pipeline import Pipeline, node, pipeline
 from .nodes import (
     train_catboost_model,
     explain_catboost_model,
-    plot_partial_dependence_catboost
+    plot_partial_dependence_catboost,
 )
 
 from ..random_forest_pipeline.nodes import (
@@ -11,6 +11,7 @@ from ..random_forest_pipeline.nodes import (
     plot_feature_importance,
     generate_predictions,
 )
+
 
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline(
@@ -34,7 +35,12 @@ def create_pipeline(**kwargs) -> Pipeline:
                 ],
                 outputs="catboost_feature_importance_plot",
                 name="plot_feature_importance_node",
-                tags=["feature_importance", "visualization", "catboost", "model_training"],
+                tags=[
+                    "feature_importance",
+                    "visualization",
+                    "catboost",
+                    "model_training",
+                ],
             ),
             node(  # Node 3: Generate Predictions
                 func=generate_predictions,
