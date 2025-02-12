@@ -1,6 +1,7 @@
 import lightgbm as lgb
 import logging
 
+
 def train_lightgbm_model(X_train, y_train, params):
     """
     Trains a LightGBM regression model using the given training data and parameters.

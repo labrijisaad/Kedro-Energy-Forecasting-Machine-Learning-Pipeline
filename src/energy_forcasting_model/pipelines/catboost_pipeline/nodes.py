@@ -2,17 +2,18 @@ import logging
 import matplotlib.pyplot as plt
 from catboost import CatBoostRegressor
 from shap import TreeExplainer, summary_plot
-from sklearn.inspection import partial_dependence, PartialDependenceDisplay
+from sklearn.inspection import PartialDependenceDisplay
+
 
 def train_catboost_model(X_train, y_train, params):
     """
     Trains a CatBoost regression model using the given training data and parameters.
-    
+
     Args:
         X_train (DataFrame): Training features.
         y_train (Series/DataFrame): Training target.
         params (dict): Dictionary containing CatBoost parameters.
-    
+
     Returns:
         CatBoostRegressor: Trained CatBoost model.
     """
@@ -52,7 +53,7 @@ def train_catboost_model(X_train, y_train, params):
         loss_function=params["loss_function"],
         eval_metric=params["eval_metric"],
         random_seed=params.get("random_state", 42),
-        verbose=params.get("verbose_eval", True)
+        verbose=params.get("verbose_eval", True),
     )
 
     # Train the model with an evaluation set for monitoring
@@ -61,7 +62,7 @@ def train_catboost_model(X_train, y_train, params):
         X_train_clean,
         y_train_clean,
         eval_set=[(X_train_clean, y_train_clean)],
-        verbose=params.get("verbose_eval", True)
+        verbose=params.get("verbose_eval", True),
     )
 
     # Log the completion of the training process
@@ -93,7 +94,7 @@ def explain_catboost_model(model, X_train):
     summary_plot(shap_values, X_train, show=False)
     fig = plt.gcf()  # Get current figure
     plt.close(fig)
-    
+
     logger.info("SHAP summary plot created successfully.")
     return fig
 
@@ -101,29 +102,26 @@ def explain_catboost_model(model, X_train):
 def plot_partial_dependence_catboost(model, X_train, features):
     """
     Generates a partial dependence plot for specified features using the trained CatBoost model.
-    
+
     Args:
         model: Trained CatBoost model.
         X_train (DataFrame): Training features.
         features (list): List of feature names or indices for which to compute partial dependence.
-    
+
     Returns:
         matplotlib.figure.Figure: The partial dependence plot figure.
     """
     logger = logging.getLogger(__name__)
     logger.info("Creating partial dependence plot for CatBoost model...")
-    
+
     # Create the plot using scikit-learn's PartialDependenceDisplay
     fig, ax = plt.subplots(figsize=(12, 8))
     display = PartialDependenceDisplay.from_estimator(
-        model,
-        X_train,
-        features=features,
-        ax=ax
+        model, X_train, features=features, ax=ax
     )
     ax.set_title("Partial Dependence Plot")
     plt.tight_layout()
     plt.close(fig)
-    
+
     logger.info("Partial dependence plot created successfully.")
     return fig
